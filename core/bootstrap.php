@@ -1,14 +1,19 @@
 <?php
 
-//Create connection to database
-$app['conifg'] = require 'config.php';
+// Get connection variables
+$app = require 'config.php';
 
-require 'core/Connection.php';
+// Set connection variables
+$params = array(
+    'dbname' => $app['name'],
+    'user' => $app['username'],
+    'password' => $app['password'],
+    'host' => $app['host'],
+    'port' => $app['port'],
+    'driver' => $app['driver'],
+);
 
 //Router
 $router = new \Bramus\Router\Router();
 
-//
 require 'routes.php';
-
-$connection = Connection::getConnected($app['config']['database']);
