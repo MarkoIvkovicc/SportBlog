@@ -30,110 +30,18 @@ class Comment
      * @ORM\Column(type="datetime", name="created_at")
      */
     protected $createdAt;
-
     /**
-     * Get id.
-     *
-     * @return int
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
-
+    protected $user;
     /**
-     * Set postId.
-     *
-     * @param int $postId
-     *
-     * @return Comment
+     * @ORM\ManyToOne(targetEntity="Post")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
-    public function setPostId($postId)
-    {
-        $this->postId = $postId;
+    protected $post;
 
-        return $this;
-    }
-
-    /**
-     * Get postId.
-     *
-     * @return int
-     */
-    public function getPostId()
-    {
-        return $this->postId;
-    }
-
-    /**
-     * Set ownerId.
-     *
-     * @param int $ownerId
-     *
-     * @return Comment
-     */
-    public function setOwnerId($ownerId)
-    {
-        $this->ownerId = $ownerId;
-
-        return $this;
-    }
-
-    /**
-     * Get ownerId.
-     *
-     * @return int
-     */
-    public function getOwnerId()
-    {
-        return $this->ownerId;
-    }
-
-    /**
-     * Set body.
-     *
-     * @param string $body
-     *
-     * @return Comment
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-
-        return $this;
-    }
-
-    /**
-     * Get body.
-     *
-     * @return string
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
-     * Set createdAt.
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Comment
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt.
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
+    public function __constructor() {
+        $this->createdAt = new \DateTime('now');
     }
 }
