@@ -1,7 +1,7 @@
-composer require bramus/router ~1.4
+composer install
 
-composer require nette/database
+vendor/bin/doctrine
 
-composer require symfony/http-foundation
+or
 
-composer require "twig/twig:^3.0"
+php vendor/doctrine/orm/bin/doctrine.php 
