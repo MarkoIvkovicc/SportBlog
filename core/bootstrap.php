@@ -38,7 +38,7 @@ $router->run();
 
 
 //Base Controller
-$baseController = new BaseController();
+/* $baseController = new BaseController(); */
 
 // Request 
 
