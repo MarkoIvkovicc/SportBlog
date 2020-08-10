@@ -1,6 +1,3 @@
 /vendor
-.config.php
-.composer.lock
-
-!/vendor/bin/doctrineBootstrap.php
-!/vendor/bin/cli-config.php
+config.php
+composer.lock
