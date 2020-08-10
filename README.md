@@ -6,6 +6,8 @@
 
 ##### Installation steps
 
+  conifg.example.php rename to config.php and setup your variable for connection
+
   ```sh
     composer install
   ```
