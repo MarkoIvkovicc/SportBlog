@@ -1,7 +1,10 @@
 <?php
 
+use Bramus\Router\Router;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
+use App\Controllers\BaseController;
+use Symfony\Component\HttpFoundation\Request;
 
 // Get connection variables
 $app = require 'config.php';
@@ -27,6 +30,15 @@ $config = Setup::createAnnotationMetadataConfiguration(array("src"), $isDevMode,
 $entityManager = EntityManager::create($params, $config);
 
 //Router
-$router = new \Bramus\Router\Router();
-
+$router = new Router();
 require 'routes.php';
+$router->run();
+
+// Twig
+
+
+//Base Controller
+$baseController = new BaseController();
+
+// Request 
+

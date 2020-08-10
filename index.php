@@ -10,4 +10,3 @@ require('vendor/autoload.php');
 
 require 'core/bootstrap.php';
 
-require 'routes.php';
