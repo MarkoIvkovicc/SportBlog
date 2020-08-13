@@ -2,12 +2,24 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
+class PostController {
 
-class PostController extends BaseController {
-    
     public function index () {
-      echo  $this->twig->render('index.html');
+      echo twig()->render('index.html');
     }
-    
+
+    public function create () {
+      echo twig()->render('posts/post-create.html');  
+    }
+
+    public function store () {
+      /* $post = App\post;
+      $post->setTitle('title');
+      $entityManger->persist($post); */
+     echo request()->get('kara');   
+    }
+
+    public function show ($id) {
+
+    }
 }

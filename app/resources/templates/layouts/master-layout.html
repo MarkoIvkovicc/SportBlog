@@ -1,86 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="public/css/app.css" rel="stylesheet" type="text/css">
-    <link href="public/css/custom.css" rel="stylesheet" type="text/css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
-    <title>Document</title>
-</head>
+{% include "layouts/meta.html" %}
 <body>
-<header>
-    <nav class="flex items-center bg-gray-800 p-3 flex-wrap">
-        <a href="#" class="p-2 mr-4 inline-flex items-center">
-          <span class="text-xl text-white font-bold uppercase tracking-wide"
-            >Sport Blog</span
-          >
-        </a>
-        <button
-          class="text-white inline-flex p-3 hover:bg-gray-900 rounded lg:hidden ml-auto hover:text-white outline-none nav-toggler"
-          data-target="#navigation"
-        >
-          <span class="material-icons">Menu</span>
-        </button>
-        <div
-          class="hidden top-navbar w-full lg:inline-flex lg:flex-grow lg:w-auto"
-          id="navigation"
-        >
-          <div class="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto">
-            <a href="#" class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white">
-              <span>Home</span>
-            </a>
-            <a href="#" class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white">
-              <span>Posts</span>
-            </a>
-            <a href="#" class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white">
-              <span>Categories</span>
-            </a>
-            <a href="#" class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white">
-            <span>About</span>
-          </a>
-            <a href="#" class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white">
-              <span>Contact Us</span>
-            </a>
-            <a href="#" class="lg:ml-auto lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white">
-                <span>Login</span>
-            </a>
-          </div>
-        </div>
-      </nav>
-</header>
+{% include "layouts/header.html" %}
 <main class="container">
-    {% block content %}
-        qqqqqqqqqqqqqqqqqqqqq
-    {% endblock %}
+  <div class="md:flex text-center mx-3 md:mx-0">
+    <div class="border md:w-3/5 m-5 p-5 mx-auto">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <div class="border md:w-1/5 m-5 p-5  mx-auto">
+      {% block sidebar %}
+      {% endblock %}
+    </div>
+</div> 
 </main>
-<footer>
-    {% include "layouts/custom.js" %}
-</footer>
+{% include "layouts/footer.html" %}
 </body>
 </html>
-
-
-
-
-
-
-
 
     
 
 
  
-
-
-
-
-
-
-
-
-        
- 
-    
-</body>
-</html>

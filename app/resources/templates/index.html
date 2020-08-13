@@ -1,12 +1,22 @@
 {% extends "layouts/master-layout.html" %}
 
 {% block content %}
-    <div class="flex">
-        <div class="bg-orange-300 w-3/5 m-5 p-5 w-full">
-            I'm the content of main article page
-        </div>
-      <div class="bg-green-300 w-1/5 m-5 text-center p-5">
-        i'm the sidebar
-      </div>
-    </div>
+
+<div class="m-auto w-full">
+  {% if posts %}
+    {% for post in posts %}
+      {{ post['title'] }} <br>
+      {{ post['body'] }} <br>
+    {% endfor %}
+  {% endif %}  
+</div>
 {% endblock  %}
+
+{% block sidebar %}
+<div class="m-auto w-full">
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, aspernatur, vel doloremque, obcaecati illo autem nobis tenetur est consectetur quaerat soluta veniam eveniet ad. Quasi, quidem repudiandae? Iure, perferendis fugit.
+  <ul>
+    
+  </ul>  
+</div>
+{% endblock %}
