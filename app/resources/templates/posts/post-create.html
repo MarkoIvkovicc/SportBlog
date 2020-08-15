@@ -3,7 +3,10 @@
 {% block content %}
     
 <form action="/posts" method="POST">
-    <input type="text" value="kara" name="kara">
+    <input type="textbox" name="title" placeholder="Title..." required>
+    <br>
+    <textarea name="body" placeholder="Enter text here..." required></textarea>
+    <br>
     <button>Submit</button>
 </form>
 

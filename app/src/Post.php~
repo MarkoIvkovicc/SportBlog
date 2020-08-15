@@ -33,7 +33,7 @@ class Post
     protected $user;
 
     public function __constructor() {
-        $this->createdAt = new \DateTime('now');
+        $this->setCreatedAt(new \DateTime('now'));
     }
 
     /**
