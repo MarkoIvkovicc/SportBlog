@@ -1,0 +1,20 @@
+{% include "layouts/master-layout.html" %}
+
+{% block content %}
+
+{{ post.title }}
+{{ post.body }}
+{{ post.user }}
+
+<form action="deletePost/{{ post.id }}" method="POST">
+	<input type="hidden" name="method" value="DELETE">
+	<input type="hidden" name="id" value="<?= $id ?>">
+	<button type="submit">Delete Post</button>
+</form>
+
+<form action="updatePost/{{ post.id }}" method="POST">
+	<input type="hidden" name="id" value="<?= $id ?>">
+	<button type="submit">Edit Post</button>
+</form>
+
+{% endblock %}

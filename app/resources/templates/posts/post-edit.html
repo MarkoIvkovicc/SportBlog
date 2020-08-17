@@ -1,0 +1,16 @@
+{% include "layouts/master-layout.html" %}
+
+{% block content %}
+    
+<form action="updatePost/{{  }}" method="POST">
+	<input type="hidden" name="id" value="<?= $id ?>">
+	<button type="submit">Update</button>
+</form>
+
+<form action="deletePost<?= $id ?>" method="POST">
+	<input type="hidden" name="method" value="DELETE">
+	<input type="hidden" name="id" value="<?= $id ?>">
+	<button type="submit">Delete Post</button>
+</form>
+
+{% endblock %}
