@@ -4,17 +4,12 @@ namespace App\Controllers;
 
 use App\src\Post as Post;
 
-use App\Services\Services;
-use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
-
 class PostController
 {
     
     public function index () {
+      $posts = em()->getRepository('App\src\Post')->findAll();
       echo twig()->render('index.html');
-      $posts = $this->em()->getRepository('App\src\Post')->findAll();
-      echo twig()->render('index.html', compact('posts'));
     }
 
     public function create () {
@@ -40,7 +35,7 @@ class PostController
 
     public function edit ($id)
     {
-      $post = $this->em()->find('App\src\Post', $id);
+      $post = em()->find('App\src\Post', $id);
       echo twig()->render('posts/post-edit.html', compact('post'));
     }
 
