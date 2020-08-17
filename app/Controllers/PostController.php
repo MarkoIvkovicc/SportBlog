@@ -47,7 +47,7 @@ class PostController
     public function delete ($id)
     {
       $post = new Post;
-      $post = $this->em()->find('app\src\Post', $id);
+      $post = em()->find('app\src\Post', $id);
       em()->remove($post);
       em()->flush();
 
