@@ -1,23 +1,44 @@
-{% include "layouts/meta.html" %}
-<body>
-{% include "layouts/header.html" %}
-<main class="container">
-  <div class="md:flex text-center mx-3 md:mx-0">
-    <div class="border md:w-3/5 m-5 p-5 mx-auto">
-      {% block content %}
-      {% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Homepage</title>
+		<meta name="author" content="name">
+    <meta name="description" content="description here">
+		<meta name="keywords" content="keywords,here">
+    <link href="/public/css/app.css" rel="stylesheet" type="text/css">
+{#     <link href="/public/css/custom.css" rel="stylesheet" type="text/css"> #}
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" rel="stylesheet">
+		<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+</head>
+<body class="bg-gray-200 font-sans leading-normal tracking-normal">
+   {% include "layouts/admin/admin-nav.html" %}
+    <div class="container px-4 md:px-0 max-w-6xl mx-auto">
+        <form action="/posts" method="POST">
+            <div>
+                <div class="w-full text-left">
+                    <div class="text-2xl mb-5">
+                        <label for="title">Post Title</label>
+                    </div>
+                    <div>
+                        <input class="w-full p-3 mb-5" type="text" name="title">
+                    </div>
+                </div>
+                <div class="w-full text-left">
+                    <div class="text-2xl mb-5">
+                        <label for="body">Post Body</label>
+                    </div>
+                    <div>
+                        <input class="w-full" type="text" name="body">
+                    </div>
+                </div>
+            </div> 
+            <button class="text-white bg-green-400 rounded p-3 m-3 w-1/4 hover:bg-green-200 hover:text-gray-700">Save Post</button>
+        </form>
     </div>
-    <div class="border md:w-1/5 m-5 p-5  mx-auto">
-      {% block sidebar %}
-      {% endblock %}
-    </div>
-</div> 
-</main>
-{% include "layouts/footer.html" %}
 </body>
 </html>
 
-    
 
-
- 
