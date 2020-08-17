@@ -37,7 +37,6 @@ class PostController
     }
 
     public function index () {
-      $this->em()->getRepository('app/src/Post');
       echo twig()->render('index.html');
     }
 
@@ -51,31 +50,31 @@ class PostController
       $post->setBody(request()->get('body'));
       $post->setCreatedAt(new \DateTime('now'));
 
-      $em = $this->em();
+      
 
-      $em->persist($post);
-      $em->flush();
+      em()->persist($post);
+      em()->flush();
 
       return header("Location: /posts/".$post->getId());
     }
 
     public function show ($id) 
     {
-      echo $this->em()->find('/app/src/Post.php', $id);
+      em()->find('app\src\Post', $id);
     }
 
     public function update ($id)
     {
-      $this->em()->merge($post);
-      $this->em()->flush();
+      /* em()->merge($post); */
+      em()->flush();
     }
 
     public function delete ($id)
     {
       $post = new Post;
-      $post = $this->em()->find('app/src/Post', $id);
-      $this->em()->remove($post);
-      $this->em()->flush();
+      $post = $this->em()->find('app\src\Post', $id);
+      em()->remove($post);
+      em()->flush();
 
       header("Location: /");
     }
