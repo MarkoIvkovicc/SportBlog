@@ -29,7 +29,7 @@ class PostController
 
     public function show ($id) 
     {
-      em()->find('app\src\Post', $id);
+      $post = em()->find('App\src\Post', $id);
       echo twig()->render('posts/post-show.html', compact('post'));
     }
 
@@ -46,6 +46,7 @@ class PostController
       $post->getTitle() != request()->get('title') ? $post->setTitle(request()->get('title')) : '';
       $post->getBody() != request()->get('body') ? $post->setBody(request()->get('body')) : '';
       $post->setCreatedAt(new \DateTime('now'));
+      
       em()->merge($post);
       em()->flush();
 
@@ -56,6 +57,7 @@ class PostController
     {
       $post = new Post;
       $post = em()->find('app\src\Post', $id);
+
       em()->remove($post);
       em()->flush();
 
