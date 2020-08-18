@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Controllers;
+	
+use App\Services\Services;
+use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\EntityManager;
+
+class Controller
+{
+	public function __constructor()
+	{
+		echo "string";
+	}
+}

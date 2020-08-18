@@ -1,10 +1,27 @@
-{% include "layouts/master-layout.html" %}
-
+{% extends "layouts/master-layout.html" %}
+{% block title %}
+    <title>Create Post</title>
+{% endblock title %}
 {% block content %}
-    
 <form action="/posts" method="POST">
-    <input type="text" value="kara" name="kara">
-    <button>Submit</button>
+    <div>
+        <div class="w-full text-left">
+            <div class="text-2xl mb-5">
+                <label for="title">Post Title</label>
+            </div>
+            <div>
+                <input class="w-full p-3 mb-5" type="text" name="title">
+            </div>
+        </div>
+        <div class="w-full text-left">
+            <div class="text-2xl mb-5">
+                <label for="body">Post Body</label>
+            </div>
+            <div>
+                <input class="w-full" type="text" name="body">
+            </div>
+        </div>
+    </div> 
+    <button class="text-white bg-green-400 rounded p-3 m-3 w-1/4 hover:bg-green-200 hover:text-gray-700">Save Post</button>
 </form>
-
-{% endblock %}
+{% endblock content %}

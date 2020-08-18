@@ -1,5 +1,7 @@
 <?php 
+
 namespace App\src;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,10 +33,6 @@ class Post
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
     protected $user;
-
-    public function __constructor() {
-        $this->createdAt = new \DateTime('now');
-    }
 
     /**
      * Get id.
