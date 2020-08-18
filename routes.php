@@ -29,6 +29,11 @@ $router->get('/admin/users/{id}/edit', '\App\Controllers\AdminController@userEdi
 $router->patch('/admin/users/{id}', '\App\Controllers\AdminController@userUpdate');
 $router->delete('/admin/users/{id}', '\App\Controllers\AdminController@userDelete');
 
-
-
-
+// Users
+$router->get('/users/{id}/edit', '\App\Controllers\UsersController@edit');
+$router->get('/users', '\App\Controllers\UsersController@index');
+$router->post('/users', '\App\Controllers\UsersController@store');
+$router->get('/users/{id}', '\App\Controllers\UsersController@show');
+$router->post('/users/{id}', '\App\Controllers\UsersController@update');
+$router->get('/users/create', '\App\Controllers\UsersController@create');
+$router->delete('/users/{id}', '\App\Controllers\UsersController@delete');
