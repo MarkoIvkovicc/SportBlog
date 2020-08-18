@@ -8,7 +8,7 @@ class PostController
 {
     
     public function index () {
-      $posts = em()->getRepository('App\src\Post')->findAll();
+      $posts = em()->getRepository(Post::class)->findAll();
       echo twig()->render('index.html');
     }
 
@@ -29,37 +29,37 @@ class PostController
 
     public function show ($id) 
     {
-      $post = em()->find('App\src\Post', $id);
+      $post = em()->find(Post::class, $id);
       echo twig()->render('posts/post-show.html', compact('post'));
     }
 
     public function edit ($id)
     {
-      $post = em()->find('App\src\Post', $id);
+      $post = em()->find(Post::class, $id);
       echo twig()->render('posts/post-edit.html', compact('post'));
     }
 
     public function update ($id)
     {
-      $post = em()->find('App\src\Post', $id);
+      $em = em();
+      $post = $em->find(Post::class, $id);
 
       $post->getTitle() != request()->get('title') ? $post->setTitle(request()->get('title')) : '';
       $post->getBody() != request()->get('body') ? $post->setBody(request()->get('body')) : '';
-      $post->setCreatedAt(new \DateTime('now'));
-      
-      em()->merge($post);
-      em()->flush();
+
+      $em->merge($post);
+      $em->flush();
 
       return header("Location: /posts/".$post->getId());
     }
 
     public function delete ($id)
     {
-      $post = new Post;
-      $post = em()->find('app\src\Post', $id);
+      $em = em();
+      $post = $em->find(Post::class, $id);
 
-      em()->remove($post);
-      em()->flush();
+      $em->remove($post);
+      $em->flush();
 
       header("Location: /");
     }
