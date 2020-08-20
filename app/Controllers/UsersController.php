@@ -3,15 +3,12 @@
 namespace App\Controllers;
 
 use App\src\User;
-use App\Services\Services;
-use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
 
 class UsersController {
 
     public function index() 
     {
-      $users = $this->em()->getRepository(User::class)->findAll();
+      $users = em()->getRepository(User::class)->findAll();
 
       echo twig()->render('users/index.html', compact('users'));
     }
@@ -22,7 +19,7 @@ class UsersController {
     }
 
     public function store() {
-      $em = $this->em();
+      $em = em();
 
       $user = new User;
 
@@ -40,14 +37,14 @@ class UsersController {
     }
 
     public function show ($id) {
-      $user = $this->em()->find(User::class, $id);
+      $user = em()->find(User::class, $id);
 
       echo twig()->render('users/show.html', compact('user'));
     }
 
     public function update($id)
     {
-      $em = $this->em();
+      $em = em();
 
       $user = $em->find(User::class, $id); 
 
@@ -65,7 +62,7 @@ class UsersController {
 
     public function delete($id)
     {
-      $em = $this->em();
+      $em = em();
 
       $user = $em->find(User::class, $id);
 
@@ -78,7 +75,7 @@ class UsersController {
 
     public function edit($id)
     {
-      $em = $this->em();
+      $em = em();
 
       $user = $em->find(User::class, $id);
 
