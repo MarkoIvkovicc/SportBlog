@@ -11,6 +11,7 @@
         "bramus/router": "~1.4",
         "symfony/http-foundation": "^5.1",
         "twig/twig": "^3.0",
-        "doctrine/orm": "^2.7"
+        "doctrine/orm": "^2.7",
+        "lcobucci/jwt": "^3.3"
     }
 }

@@ -25,7 +25,7 @@ class UsersController {
 
       $user->setName(request()->get('name'))
         ->setEmail(request()->get('email'))
-        ->setPassword(request()->get('password'))
+        ->setPassword(password_hash(request()->get('password'), PASSWORD_BCRYPT))
         ->setRole(request()->get('role'))
         ->setCreatedAt(new \DateTime('now'));
 
