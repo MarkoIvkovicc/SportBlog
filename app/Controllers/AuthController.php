@@ -11,7 +11,7 @@ class AuthController
 {
 	public function loginForm()
 	{
-		echo twig()->render('loginForm.html');
+		echo twig()->render('auth/loginForm.html');
 	}
 
 	public function login()
@@ -21,15 +21,25 @@ class AuthController
     	$token = $this->authenticate($credentials);
 
     	session_start();
+        session_regenerate_id(true);
 
     	$_SESSION['token'] = $token->__toString();
 
     	header('location:/');
     }
 
+    public function logout()
+    {
+        session_start();
+
+        unset($_SESSION['token']);
+
+        header('location:/login');
+    }
+
     public function registerForm()
     {
-    	echo twig()->render('registerForm.html');
+    	echo twig()->render('auth/registerForm.html');
     }
 
     public function authenticate($credentials)
