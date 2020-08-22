@@ -1,5 +1,9 @@
 <?php
 
+//Middlewares
+$router->before('GET', '/.*', '\App\Middlewares\Authentication@authenticateUser');
+$router->before('GET', '/.*', '\App\Middlewares\Authorization@isAdmin');
+
 // Homepage
 $router->get('/', '\App\Controllers\HomepageController@index');
 
@@ -45,4 +49,5 @@ $router->post('/users', '\App\Controllers\UsersController@store');
 // Auth
 $router->get('/login', '\App\Controllers\AuthController@loginForm');
 $router->post('/login', '\App\Controllers\AuthController@login');
+$router->post('/logout', '\App\Controllers\AuthController@logout');
 $router->get('/register', '\App\Controllers\AuthController@registerForm');
