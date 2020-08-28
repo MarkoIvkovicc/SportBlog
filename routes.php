@@ -34,10 +34,16 @@ $router->post('/comments/{id}', '\App\Controllers\CommentsController@store');
 // Route for Adnmins only !!!
 $router->get('/users', '\App\Controllers\UsersController@index');
 // Routes for Adnmins and profile owners only !!!
-$router->get('/users/{id}', '\App\Controllers\UsersController@show');
+$router->get('/users/{id}/edit', '\App\Controllers\UsersController@show');
 $router->get('/users/{id}', '\App\Controllers\UsersController@edit');
 $router->post('/users/{id}', '\App\Controllers\UsersController@update');
-$router->post('/users/{id}', '\App\Controllers\UsersController@delete');
+$router->delete('/users/{id}', '\App\Controllers\UsersController@delete');
 // Routes for Adnmins only !!!
 $router->get('/users', '\App\Controllers\UsersController@create');
 $router->post('/users', '\App\Controllers\UsersController@store');
+
+// Auth
+$router->get('/login', '\App\Controllers\AuthController@loginForm');
+$router->post('/login', '\App\Controllers\AuthController@login');
+$router->post('/logout', '\App\Controllers\AuthController@logout');
+$router->get('/register', '\App\Controllers\AuthController@registerForm');
