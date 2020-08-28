@@ -17,7 +17,7 @@ class Authorization
 
 		if(strcmp($token->getClaim('role'), self::ADMIN) !== 0)
 		{
-			echo "401, Forbidden";
+			//TO DO: return twig for forbiden access for non-admins
 		}
 	}
 
@@ -29,7 +29,7 @@ class Authorization
 
 		if(strcmp($token->getClaim('role'), self::USER) !== 0)
 		{
-			echo "401, Forbidden";
+			//TO DO: return twig for forbiden access for non-users (visitors)
 		}
 	}
 }

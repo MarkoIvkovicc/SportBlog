@@ -1,9 +1,5 @@
 <?php
 
-//Middlewares
-$router->before('GET', '/.*', '\App\Middlewares\Authentication@authenticateUser');
-$router->before('GET', '/.*', '\App\Middlewares\Authorization@isAdmin');
-
 // Homepage
 $router->get('/', '\App\Controllers\HomepageController@index');
 

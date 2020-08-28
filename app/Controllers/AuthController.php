@@ -56,14 +56,9 @@ class AuthController
 
         $user = $query->getOneOrNullResult();
 
-        if(!$user)
+        if(!$user || !password_verify($credentials['password'], $user->getPassword()))
         {
-        	echo "wrong email";
-        }
-
-        if(!password_verify($credentials['password'], $user->getPassword()))
-        {
-        	echo "wrong password";
+            //TO DO: return twig for wrong credentials
         }
 
         $token = $this->makeToken($user);

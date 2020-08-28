@@ -18,7 +18,7 @@ class Authentication
 
 		if (! isset($_SESSION['token']))
 		{
-			header('location: /login');
+			header('location: /login'); //with message: Your token is not valid. Please log in again.
 		}
 
 		$token = (new Parser())->parse((string) $_SESSION['token']);
