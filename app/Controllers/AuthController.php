@@ -16,6 +16,7 @@ class AuthController
 
 	public function login()
     {
+        var_dump('hello');
     	$credentials = request()->request->all();
 
     	$token = $this->authenticate($credentials);
