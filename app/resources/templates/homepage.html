@@ -14,21 +14,22 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" rel="stylesheet">
     {% block scripts %}
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-    {% endblock scripts %}
-    
+    {% endblock scripts %}  
 </head>
 {% block body_content %}
 <body class="bg-gray-200 font-sans leading-normal tracking-normal h-screen">
-  <div class="w-full m-0 p-0 bg-cover bg-bottom" style="background-image:url('https://source.unsplash.com/collection/1227291/1600x900'); height: 60vh; max-height:460px;">
+  <div class="w-full m-0 p-0 bg-cover bg-bottom" style="background-image:url('https://source.unsplash.com/collection/1227291/1600x900'); height: 60vh; max-height:460px;"> 
+    <div class="text-right text-gray-400"> 
+      <a class="no-underline hover:underline" href="/login">Login</a>
+      <a class="mx-3 no-underline hover:underline" href="/register">Register</a>
+    </div>
   <div class="container max-w-4xl mx-auto pt-16 md:pt-32 text-center break-normal">
     <!--Title-->
       <p class="text-gray-100 font-extrabold text-3xl md:text-5xl">
         Sport Blog
       </p>
       <p class="text-xl md:text-2xl text-gray-500">
-
         Welcome to my Blog
-
       </p>
   </div>
 </div>
@@ -41,16 +42,16 @@
         <div class="flex w-full pl-4 text-sm bg-gray-700 bg-opacity-25 rounded-t-lg">
           <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
             <li class="mr-2">
-            <a class="text-2xl inline-block py-2 px-2 text-white no-underline hover:underline" href="/">HOME</a>
+            <a class="text-2xl inline-block py-2 px-2 text-gray-200 no-underline hover:underline" href="/">HOME</a>
             </li>
             <li class="mr-2">
-            <a class="text-2xl inline-block text-white no-underline hover:text-white hover:underline py-2 px-2" href="#">LINK</a>
+            <a class="text-2xl inline-block text-gray-200 no-underline hover:text-white hover:underline py-2 px-2" href="#">LINK</a>
             </li>
             <li class="mr-2">
-            <a class="text-2xl inline-block text-white no-underline hover:text-white hover:underline py-2 px-2" href="#">LINK</a>
+            <a class="text-2xl inline-block text-gray-200 no-underline hover:text-white hover:underline py-2 px-2" href="#">LINK</a>
             </li>
             <li class="mr-2">
-            <a class="text-2xl inline-block text-white no-underline hover:text-white hover:underline py-2 px-2" href="post_vue.html">LINK</a>
+            <a class="text-2xl inline-block text-gray-200 no-underline hover:text-white hover:underline py-2 px-2" href="post_vue.html">LINK</a>
             </li>
           </ul>
           <div class="flex ml-auto justify-end content-center text-center">		
