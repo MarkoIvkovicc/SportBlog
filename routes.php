@@ -4,12 +4,12 @@
 $router->get('/', '\App\Controllers\HomepageController@index');
 
 // Admin
-$router->get('/admin', function() {
+$router->get('/dashboard', function() {
     echo twig()->render('admin/admin-index.html');
 });
-$router->get('/admin/posts', '\App\Controllers\AdminController@postsIndex');
-$router->get('/admin/comments', '\App\Controllers\AdminController@commentsIndex');
-$router->get('/admin/users', '\App\Controllers\AdminController@usersIndex');
+$router->get('/dashboard/posts', '\App\Controllers\DashboardController@postsIndex');
+$router->get('/dashboard/comments', '\App\Controllers\DashboardController@commentsIndex');
+$router->get('/dashboard/users', '\App\Controllers\DashboardController@usersIndex');
 
 
 // Posts
@@ -50,5 +50,5 @@ $router->post('/users', '\App\Controllers\UsersController@store');
 // Auth
 $router->get('/login', '\App\Controllers\AuthController@loginForm');
 $router->post('/login', '\App\Controllers\AuthController@login');
-$router->post('/logout', '\App\Controllers\AuthController@logout');
+$router->get('/logout', '\App\Controllers\AuthController@logout');
 $router->get('/register', '\App\Controllers\AuthController@registerForm');

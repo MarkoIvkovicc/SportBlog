@@ -17,7 +17,10 @@ class AuthController
 	public function login()
     {
         var_dump('hello');
-    	$credentials = request()->request->all();
+    	$credentials = [
+            'email' => request()->get('email'),
+            'password' => request()->get('password') 
+        ];
 
     	$token = $this->authenticate($credentials);
 
@@ -26,7 +29,7 @@ class AuthController
 
     	$_SESSION['token'] = $token->__toString();
 
-    	header('location:/');
+    	header('location:/dashboard');
     }
 
     public function logout()

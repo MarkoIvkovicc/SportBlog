@@ -1,8 +1,9 @@
 <?php 
 
 namespace App\Controllers;
+use App\Controllers\AuthController;
 
-class AdminController {
+class DashboardController {
   
     public function postsIndex () {
         echo twig()->render('admin/posts-index.html');
