@@ -16,7 +16,6 @@ class AuthController
 
 	public function login()
     {
-        var_dump('hello');
     	$credentials = [
             'email' => request()->get('email'),
             'password' => request()->get('password') 
@@ -64,7 +63,7 @@ class AuthController
         {
             //TO DO: return twig for wrong credentials
         }
-
+        
         $token = $this->makeToken($user);
 
         return $token;	

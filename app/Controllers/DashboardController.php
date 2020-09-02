@@ -1,7 +1,8 @@
 <?php 
 
 namespace App\Controllers;
-use App\Controllers\AuthController;
+
+use App\Models\User;
 
 class DashboardController {
   

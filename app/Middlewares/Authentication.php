@@ -7,12 +7,12 @@ use Lcobucci\JWT\Parser;
 
 class Authentication
 {
-	public function authenticateUser()
+	public static function authenticateUser()
 	{
-		return $this->validateToken();
+		return self::validateToken();
 	}
 
-	private function validateToken()
+	private static function validateToken()
 	{
 		session_start();
 
@@ -25,9 +25,11 @@ class Authentication
 
 		$data = new ValidationData();
 
-		if (!$token->validate($data))
+		if (! $token->validate($data))
 		{
 			header('location: /login'); //with message: Your token is not valid. Please log in again.
 		}
+
+		return $token->getClaims();
 	}
 }
