@@ -3,8 +3,29 @@
 {% block content %}
 
 {{ post.title }}
+<br>
 {{ post.body }}
+<br>
 {{ post.user }}
+<br>
+<h3>Comments section</h3>
+<br>
+
+{% for comment in comments %}
+	<li>{{ comment.body }}</li>
+	{{ comment.user.name }}
+
+	<form action="/editComment/{{ comment.id }}">
+		<button type="submit">Edit Comment</button>
+	</form>
+
+	<form action="/deleteComment/{{ comment.id }}" method="POST">
+		<input type="hidden" name="method" value="DELETE">
+		<input type="hidden" name="id" value="{{ commment.id }}">
+		<button type="submit">Delete Comment</button>
+	</form>
+{% endfor %}
+
 
 <form action="/editPost/{{ post.id }}">
 	<button type="submit">Edit Post</button>

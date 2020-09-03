@@ -33,12 +33,12 @@ class Comment
      */
     protected $createdAt;
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", cascade={"all"}, fetch="LAZY")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
     protected $user;
     /**
-     * @ORM\ManyToOne(targetEntity="Post")
+     * @ORM\ManyToOne(targetEntity="Post", cascade={"all"}, fetch="LAZY")
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
     protected $post;

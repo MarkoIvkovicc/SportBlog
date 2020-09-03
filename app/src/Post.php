@@ -29,7 +29,7 @@ class Post
      */
     protected $createdAt;
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", cascade={"all"}, fetch="LAZY")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
     protected $user;
@@ -119,11 +119,11 @@ class Post
     /**
      * Set user.
      *
-     * @param \User|null $user
+     * @param null $user
      *
      * @return Post
      */
-    public function setUser(\User $user = null)
+    public function setUser($user = null)
     {
         $this->user = $user;
 
