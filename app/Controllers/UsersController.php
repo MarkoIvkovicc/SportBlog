@@ -22,17 +22,15 @@ class UsersController {
       $em = em();
 
       $user = new User;
-
       $user->setName(request()->get('name'))
         ->setEmail(request()->get('email'))
         ->setPassword(password_hash(request()->get('password'), PASSWORD_BCRYPT))
-        ->setRole(request()->get('role'))
+        ->setRole('user')
         ->setCreatedAt(new \DateTime('now'));
 
       $em->persist($user);
-
       $em->flush();
-
+      
       return header("Location: /users/" . $user->getId());
     }
 

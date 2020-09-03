@@ -3,13 +3,18 @@
 // Homepage
 $router->get('/', '\App\Controllers\HomepageController@index');
 
-$router->get('/admin', function() {
-    echo twig()->render('layouts/admin/admin-index.html');
+// Admin
+$router->get('/dashboard', function() {
+    echo twig()->render('admin/admin-index.html');
 });
+$router->get('/dashboard/posts', '\App\Controllers\DashboardController@postsIndex');
+$router->get('/dashboard/comments', '\App\Controllers\DashboardController@commentsIndex');
+$router->get('/dashboard/users', '\App\Controllers\DashboardController@usersIndex');
+
 
 // Posts
 // Routes for anonymous visitors
-$router->get('/', '\App\Controllers\PostsController@index');
+/* $router->get('/', '\App\Controllers\PostsController@index'); */
 $router->get('/posts/{id}', '\App\Controllers\PostsController@show');
 // Route for Admins and post owners only
 $router->get('/posts/create', '\App\Controllers\PostsController@create');
@@ -45,5 +50,5 @@ $router->post('/users', '\App\Controllers\UsersController@store');
 // Auth
 $router->get('/login', '\App\Controllers\AuthController@loginForm');
 $router->post('/login', '\App\Controllers\AuthController@login');
-$router->post('/logout', '\App\Controllers\AuthController@logout');
+$router->get('/logout', '\App\Controllers\AuthController@logout');
 $router->get('/register', '\App\Controllers\AuthController@registerForm');
