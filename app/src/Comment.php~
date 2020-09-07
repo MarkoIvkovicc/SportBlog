@@ -33,13 +33,13 @@ class Comment
      */
     protected $createdAt;
     /**
-     * @ORM\ManyToOne(targetEntity="User", cascade={"all"}, fetch="LAZY")
-     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="User", fetch="LAZY")
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $user;
     /**
-     * @ORM\ManyToOne(targetEntity="Post", cascade={"all"}, fetch="LAZY")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Post", fetch="LAZY")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $post;
 
@@ -156,11 +156,11 @@ class Comment
     /**
      * Set user.
      *
-     * @param \User|null $user
+     * @param null $user
      *
      * @return Comment
      */
-    public function setUser(\User $user = null)
+    public function setUser( $user = null)
     {
         $this->user = $user;
 
@@ -180,11 +180,11 @@ class Comment
     /**
      * Set post.
      *
-     * @param \Post|null $post
+     * @param null $post
      *
      * @return Comment
      */
-    public function setPost(\Post $post = null)
+    public function setPost( $post = null)
     {
         $this->post = $post;
 

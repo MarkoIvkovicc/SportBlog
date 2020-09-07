@@ -1,0 +1,6 @@
+<form action="/comments/{{ post.id }}" method="POST">
+	<input type="hidden" name="id" value="{{ post.id }}">
+    <label>Add comment</label>
+    <textarea name="body"></textarea>
+    <button type="submit">Submit</button>
+</form>

@@ -29,8 +29,8 @@ class Post
      */
     protected $createdAt;
     /**
-     * @ORM\ManyToOne(targetEntity="User", cascade={"all"}, fetch="LAZY")
-     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="User", fetch="LAZY")
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $user;
 

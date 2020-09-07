@@ -1,12 +1,10 @@
-{% include "layouts/master-layout.html" %}
-
 {% block content %}
 
 {{ post.title }}
 <br>
 {{ post.body }}
 <br>
-{{ post.user }}
+{{ post.user.name }}
 <br>
 <h3>Comments section</h3>
 <br>
@@ -14,6 +12,7 @@
 {% for comment in comments %}
 	<li>{{ comment.body }}</li>
 	{{ comment.user.name }}
+	{{ comment.createdAt|date('d.m.Y H:i') }}
 
 	<form action="/editComment/{{ comment.id }}">
 		<button type="submit">Edit Comment</button>
@@ -25,6 +24,8 @@
 		<button type="submit">Delete Comment</button>
 	</form>
 {% endfor %}
+
+{% include "comments/comment-create.html" %}
 
 
 <form action="/editPost/{{ post.id }}">

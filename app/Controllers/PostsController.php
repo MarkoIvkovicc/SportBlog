@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\src\Post as Post;
 use App\src\Comment;
+use App\src\User as UserEM;
+use App\Models\User as UserModel;
 
 class PostsController
 {
@@ -17,14 +19,20 @@ class PostsController
     }
 
     public function store () {
+      $em = em();
       $post = new Post;
+      $UserModel = new UserModel;
+      $userEM = $em->find(UserEM::class, $UserModel->getId());
+      
       $post->setTitle(request()->get('title'));
       $post->setBody(request()->get('body'));
+      $post->setUser($userEM);
+      $post->setCreatedAt(new \DateTime);
 
-      em()->persist($post);
-      em()->flush();
+      $em->persist($post);
+      $em->flush();
 
-      return header("Location: /posts/".$post->getId());
+      return header("Location: /posts/" . $post->getId());
     }
 
     public function show ($id) 
@@ -62,7 +70,7 @@ class PostsController
       $em->remove($post);
       $em->flush();
 
-      return header("Location: /");
+      return header("Location: /dashboard");
     }
 
     //Post ID goes in parameter

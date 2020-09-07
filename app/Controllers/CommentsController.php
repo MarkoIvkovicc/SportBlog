@@ -3,20 +3,27 @@
 namespace App\Controllers;
 
 use App\src\Comment;
+use App\src\Post;
+use App\src\User as UserEM;
+use App\Models\User as UserModel;
 
 class CommentsController
 {
-        //Post ID goes in parameter
+    //Post ID goes in parameter
     public function store ($id) {
+      $em = em();
       $comment = new Comment;
+      $UserModel = new UserModel;
+      $userEM = $em->find(UserEM::class, $UserModel->getId());
+      $post = $em->find(Post::class, $id);
 
-      $comment->setPostId($id);
-      $comment->setOwnerId($_SESSION['token']['id']);
       $comment->setBody(request()->get('body'));
       $comment->setCreatedAt(new \DateTime('now'));
+      $comment->setUser($userEM);
+      $comment->setPost($post);
 
-      em()->persist($comment);
-      em()->flush();
+      $em->persist($comment);
+      $em->flush();
 
       return header("Location: /posts/".$id);
     }
@@ -37,16 +44,17 @@ class CommentsController
       $em->merge($comment);
       $em->flush();
 
-      return header("Location: /posts/".$comment->getId());
+      return header("Location: /posts/".$comment->getPostId());
     }
 
     public function delete ($id)
     {
       $em = em();
       $comment = $em->find(Comment::class, $id);
+      $postId = $comment->getPostId();
       $em->remove($comment);
       $em->flush();
 
-      return header("Location: /");
+      return header("Location: /posts/".$postId);
     }
 } 
