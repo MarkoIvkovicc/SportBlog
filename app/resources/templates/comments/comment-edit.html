@@ -1,0 +1,16 @@
+{% block content %}
+    
+<form action="/updateComment/{{ comment.id }}" method="POST">
+	<input type="hidden" name="id" value="{{ comment.id }}">
+	<label>Body</label>
+	<textarea name="body">{{ comment.body }}</textarea>
+	<button type="submit">Update</button>
+</form>
+
+<form action="/deleteComment/{{ comment.id }}" method="POST">
+	<input type="hidden" name="method" value="DELETE">
+	<input type="hidden" name="id" value="{{ comment.id }}">
+	<button type="submit">Delete Comment</button>
+</form>
+
+{% endblock %}
