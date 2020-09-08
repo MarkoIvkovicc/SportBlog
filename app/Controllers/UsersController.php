@@ -73,11 +73,9 @@ class UsersController {
     public function delete($id)
     {
       $em = em();
-
       $user = $em->find(User::class, $id);
 
       $em->remove($user);
-
       $em->flush();
 
       header("Location: /users");
