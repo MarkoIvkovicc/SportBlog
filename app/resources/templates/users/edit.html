@@ -1,4 +1,26 @@
-<ul>
-	<li>{{ user.name }}</li>
-	<li>{{ user.email }}</li>
-</ul>
+{% block content %}
+    
+<form action="/updateUser/{{ user.id }}" method="POST">
+	<input type="hidden" name="id" value="{{ user.id }}">
+	<label>Username</label>
+	<input type="textbox" name="username" value="{{ user.name }}">
+	<br>
+	<label>Email</label>
+	<input type="textbox" name="email" value="{{ user.email }}">
+	<br>
+	<label>Current Password</label>
+	<input type="textbox" name="old-password">
+	<br>
+	<label>New Password</label>
+	<input type="textbox" name="new-password">
+
+	<button type="submit">Update</button>
+</form>
+
+<form action="/deleteUser/{{ user.id }}" method="POST">
+	<input type="hidden" name="method" value="DELETE">
+	<input type="hidden" name="id" value="{{ user.id }}">
+	<button type="submit">Delete User</button>
+</form>
+
+{% endblock %}

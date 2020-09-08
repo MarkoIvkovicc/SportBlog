@@ -46,13 +46,20 @@ class UsersController {
 
       $user = $em->find(User::class, $id); 
 
-      $user->setName(request()->get('name'))
-        ->setEmail(request()->get('email'))
-        ->setPassword(request()->get('password'))
-        ->setRole(request()->get('role'));
+      $user->setName(request()->get('username'))
+        ->setEmail(request()->get('email'));
+
+      if (request()->get('old-password') != null) {
+        $oldPass = $user->getPassword();
+
+        if (password_verify(request()->get('old-password'), $oldPass)) {
+          $user->setPassword(password_hash(request()->get('new-password'), PASSWORD_BCRYPT));
+        }
+      }
+
+      request()->get('role') ? $user->setRole(request()->get('role')) : '';
 
       $em->merge($user);
-
       $em->flush();
 
       return header("Location: /users/" . $user->getId());
