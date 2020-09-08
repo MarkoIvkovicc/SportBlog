@@ -28,7 +28,7 @@ class AuthController
 
     	$_SESSION['token'] = $token->__toString();
 
-    	header('location:/dashboard');
+    	header('location:/');
     }
 
     public function logout()
@@ -61,6 +61,7 @@ class AuthController
 
         if(!$user || !password_verify($credentials['password'], $user->getPassword()))
         {
+            header('location:/login');
             //TO DO: return twig for wrong credentials
         }
         

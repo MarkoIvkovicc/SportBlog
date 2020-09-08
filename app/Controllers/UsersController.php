@@ -31,11 +31,16 @@ class UsersController {
       $em->persist($user);
       $em->flush();
       
-      return header("Location: /users/" . $user->getId());
+      return header('Location: /login');
     }
 
     public function show ($id) {
       $user = em()->find(User::class, $id);
+
+      if (! $user) {
+        echo twig()->render('http-codes/404.html');
+        exit();
+      }
 
       echo twig()->render('users/show.html', compact('user'));
     }
@@ -83,6 +88,11 @@ class UsersController {
       $em = em();
 
       $user = $em->find(User::class, $id);
+
+      if (! $user) {
+        echo twig()->render('http-codes/404.html');
+        exit();
+      }
 
       echo twig()->render('users/edit.html', compact('user'));
     }
