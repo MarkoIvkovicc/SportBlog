@@ -16,23 +16,41 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     {% endblock scripts %}  
 </head>
-{% block body_content %}
 <body class="bg-gray-200 font-sans leading-normal tracking-normal h-screen">
-  <div class="w-full m-0 p-0 bg-cover bg-bottom" style="background-image:url('https://source.unsplash.com/collection/1227291/1600x900'); height: 60vh; max-height:460px;"> 
-    <div class="text-right text-gray-400"> 
-      <a class="no-underline hover:underline" href="/login">Login</a>
-      <a class="mx-3 no-underline hover:underline" href="/register">Register</a>
-    </div>
-  <div class="container max-w-4xl mx-auto pt-16 md:pt-32 text-center break-normal">
-    <!--Title-->
-      <p class="text-gray-100 font-extrabold text-3xl md:text-5xl">
-        Sport Blog
-      </p>
-      <p class="text-xl md:text-2xl text-gray-500">
-        Welcome to my Blog
-      </p>
+{% block body_content %}
+{% block header %}
+
+{% block header_image %}
+<div class="w-full m-0 p-0 bg-cover bg-bottom" style="background-image:url('https://source.unsplash.com/collection/1227291/1600x900'); height: 60vh; max-height:460px;">
+{% endblock header_image %}
+ 
+  {% block header_nav %}
+{#   {% if userRole == false %} #}
+  <div class="text-right text-gray-400"> 
+    <a class="no-underline hover:underline" href="/login">Login</a>
+    <a class="mx-3 no-underline hover:underline" href="/register">Register</a>
   </div>
+{#   {% endif %} #}
+ 
+{% endblock header_nav %}
+  
+<div class="container max-w-4xl mx-auto pt-16 md:pt-32 mb-40 text-center break-normal">
+  {% block header_title %}
+    <!--Title-->
+    
+    <p class="text-gray-100 font-extrabold text-3xl md:text-5xl">
+      Sport Blog
+    </p>
+    <p class="text-xl md:text-2xl text-gray-500">
+      Welcome to my Blog
+    </p>
+
+  {% endblock header_title %}
 </div>
+
+
+{% endblock header %}
+
 <div class="container px-4 md:px-0 max-w-6xl mx-auto -mt-32 mb-auto">    
   <div class="mx-0 sm:mx-6"> 
     <!--Nav-->

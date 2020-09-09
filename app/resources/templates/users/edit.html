@@ -16,7 +16,6 @@
 
 	<button type="submit">Update</button>
 </form>
-
 <form action="/deleteUser/{{ user.id }}" method="POST">
 	<input type="hidden" name="method" value="DELETE">
 	<input type="hidden" name="id" value="{{ user.id }}">

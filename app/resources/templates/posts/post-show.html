@@ -1,8 +1,10 @@
-{% block content %}
+
 
 {{ post.title }}
 <br>
-{{ post.body }}
+{% autoescape %}
+{{ post.body|raw }}
+{% endautoescape %}
 <br>
 {{ post.user.name }}
 <br>
@@ -38,4 +40,3 @@
 	<button type="submit">Delete Post</button>
 </form>
 
-{% endblock %}

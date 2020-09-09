@@ -1,0 +1,45 @@
+{% extends "homepage.html" %}
+
+{% block body_content %}
+{% block header_image %}
+<div class="w-full m-0 p-0 bg-cover bg-bottom" style="background-image:url('https://source.unsplash.com/collection/1227291/1600x900'); height: 20vh; max-height:460px;">
+{% endblock header_image %}
+{% block header_nav %}
+    {{ parent() }}
+{% endblock header_nav %}
+{% block header_title %}
+<div class="container max-w-4xl mx-auto pt-16 md:pt-5 text-center break-normal">
+    <!--Title-->
+    
+    <p class="text-gray-100 font-extrabold text-3xl md:text-5xl">
+      Sport Blog
+    </p>
+    <p class="text-xl md:text-2xl text-gray-500">
+      POSTS
+    </p>
+<div>
+{% endblock header_title %}
+<div class="mt-20">
+    {% block posts %}
+    {% for post in posts %}
+    <div class="p-5">
+        <a href="posts/{{ post.id }}" class=" flex justify-between">
+            <div class="text-4xl">
+                {{ post.title }}
+            </div>
+            <div class="text-sm my-auto">created: {{ post.createdAt|date('d.m.Y H:i') }}</div>
+        </a>
+    </div>
+   
+    
+    
+    {% endfor %}
+    {% endblock posts %}
+</div>
+
+    
+
+
+{% endblock body_content %}
+
+
