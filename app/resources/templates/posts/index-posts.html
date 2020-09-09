@@ -20,21 +20,18 @@
 <div>
 {% endblock header_title %}
 <div class="mt-20">
-    {% block posts %}
+
     {% for post in posts %}
     <div class="p-5">
         <a href="posts/{{ post.id }}" class=" flex justify-between">
             <div class="text-4xl">
                 {{ post.title }}
             </div>
-            <div class="text-sm my-auto">created: {{ post.createdAt|date('d.m.Y H:i') }}</div>
+            <div class="text-sm my-auto">{{ post.createdAt|date('d.m.Y H:i') }}</div>
         </a>
     </div>
-   
-    
-    
     {% endfor %}
-    {% endblock posts %}
+
 </div>
 
     

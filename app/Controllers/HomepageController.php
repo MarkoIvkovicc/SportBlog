@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
+use App\Models\User;
+
 
 class HomepageController {
     public function index () {
-        $posts = em()->getRepository('App\src\Post')->findAll();
-        echo twig()->render('homepage.html'); 
+            echo twig()->render('homepage.html'); 
     }
-
 } 
