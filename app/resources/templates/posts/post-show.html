@@ -1,15 +1,32 @@
+{% extends "homepage.html" %}
+{% block body_content %}
+{% block header_image %}
+<div class="w-full m-0 p-0 bg-cover bg-bottom" >
+{% endblock header_image %}
+{% block header_nav %}
+    {{ parent() }}
+{% endblock header_nav %}
+{% block header_title %}
+<div class="container max-w-4xl mx-auto pt-16 md:pt-5 text-center break-normal ">
+     <!--Title-->
+     <p class="text-xl md:text-6xl text-gray-700">
+		 {{ post.title }}
+     </p>
 
+ {% endblock header_title %}
+ <div class="mt-20 p-5">
 
-{{ post.title }}
-<br>
 {% autoescape %}
-{{ post.body|raw }}
+<div class="text-lg">
+	{{ post.body|raw }}
+</div>
+
 {% endautoescape %}
-<br>
+</div>
 {{ post.user.name }}
-<br>
+
 <h3>Comments section</h3>
-<br>
+
 
 {% for comment in comments %}
 	<li>{{ comment.body }}</li>
@@ -40,3 +57,6 @@
 	<button type="submit">Delete Post</button>
 </form>
 
+
+	
+{% endblock body_content %}

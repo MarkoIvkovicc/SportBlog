@@ -16,7 +16,7 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     {% endblock scripts %}  
 </head>
-<body class="bg-gray-200 font-sans leading-normal tracking-normal h-screen">
+<body class="font-sans leading-normal tracking-normal h-screen">
 {% block body_content %}
 {% block header %}
 
@@ -27,13 +27,16 @@
   {% block header_nav %}
 {#   {% if userRole == false %} #}
 
-  <div class="text-right text-gray-400"> 
-
-    <a class="mx-3 no-underline hover:underline" href="/logout">Logout</a>
-
-    <a class="no-underline hover:underline" href="/login">Login</a>
-    <a class="mx-3 no-underline hover:underline" href="/register">Register</a>
-
+  <div class="text-right text-gray-700 flex justify-between  p-2 w-full sticky top-0"> 
+    <div class="flex justify-between">
+      <div> <a class="mx-3 no-underline hover:underline" href="/">Home</a></div>
+      <div> <a class="mx-3 no-underline hover:underline" href="/posts">Posts</a></div>
+    </div>
+   <div class="flex justify-between"> 
+    <div> <a class="mx-3 no-underline hover:underline" href="/logout">Logout</a></div>
+    <div> <a class="no-underline hover:underline" href="/login">Login</a></div>
+    <div><a class="mx-3 no-underline hover:underline" href="/register">Register</a></div>   
+  </div>
   </div>
 {#   {% endif %} #}
  
