@@ -11,6 +11,8 @@ class AuthController
 {
 	public function loginForm()
 	{
+        session_start();
+        isset($_SESSION['token']) ? header('Location: /') : '';
 		echo twig()->render('auth/loginForm.html');
 	}
 
@@ -42,6 +44,8 @@ class AuthController
 
     public function registerForm()
     {
+        session_start();
+        isset($_SESSION['token']) ? header('Location: /') : '';
     	echo twig()->render('auth/registerForm.html');
     }
 
