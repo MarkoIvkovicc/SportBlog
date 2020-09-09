@@ -2,10 +2,8 @@
 
 namespace App\Controllers;
 
-// use App\Models\User;
 use App\src\User;
-
-use Doctrine\ORM\Query\ResultSetMapping;
+use App\Models\User as UserModel;
 
 class DashboardController {
   
@@ -16,11 +14,6 @@ class DashboardController {
     public function usersIndex () {
         echo twig()->render('admin/users-index.html');
     }
-
-    // public function dashboard () {
-    // 	$user->isAdmin() { $posts = em->findAllPosts}
-    // 	$user->isUser() {$posts = em->find(Post:class, )} //ownerId i iz sestije user id
-    // }
 
     public function index () {
         //Total tables counts
@@ -82,6 +75,10 @@ class DashboardController {
         $countsLast3Months = $statLast3Months->fetchAll();
         $countsLast3Months = array_shift($countsLast3Months);
 
-        echo twig()->render('layouts/admin/admin-layout.html', compact('countsTotal', 'countsLastMonth', 'countsLast3Months'));
+        //Get Loged User Id
+        $userId = new UserModel;
+        $userId = $userId->getId();
+
+        echo twig()->render('layouts/admin/admin-layout.html', compact('countsTotal', 'countsLastMonth', 'countsLast3Months', 'userId'));
     }
 }
