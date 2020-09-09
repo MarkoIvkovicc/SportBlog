@@ -10,8 +10,6 @@ $entityManager = em();
 //Router
 $router = router();
 
-require 'routes/guest-routes.php';
-
 $authentication = new App\Middlewares\Authentication();
 
 if ($authentication->passed()) {
@@ -24,5 +22,7 @@ if ($authentication->passed()) {
 		require 'routes/loged-user-routes.php';
 	}
 }
+
+require 'routes/guest-routes.php';
 
 $router->run();

@@ -11,7 +11,7 @@ class PostsController
 {
     public function index () {
       $posts = em()->getRepository(Post::class)->findAll();
-      echo twig()->render('index.html', compact('posts'));
+      echo twig()->render('homepage.html', compact('posts'));
     }
 
     public function create () {

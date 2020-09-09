@@ -14,8 +14,9 @@ class User
     private $email;
     private $role;
 
-    public function __construct(Authentication $authentication)
+    public function __construct()
     {
+        $authentication = new Authentication;
         $user = $authentication->getUser();
 
         $this->id = $user['id']->getValue();
