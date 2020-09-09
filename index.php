@@ -11,5 +11,3 @@ date_default_timezone_set("Europe/Belgrade");
 require('vendor/autoload.php');
 
 require 'core/bootstrap.php';
-
-require 'routes.php';

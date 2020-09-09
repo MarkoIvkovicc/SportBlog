@@ -16,7 +16,8 @@ class User
 
     public function __construct()
     {
-        $user = Authentication::authenticateUser();
+        $authentication = new Authentication;
+        $user = $authentication->getUser();
 
         $this->id = $user['id']->getValue();
         $this->name = $user['name']->getValue();

@@ -11,6 +11,8 @@ class AuthController
 {
 	public function loginForm()
 	{
+        session_start();
+        isset($_SESSION['token']) ? header('Location: /') : '';
 		echo twig()->render('auth/loginForm.html');
 	}
 
@@ -28,7 +30,7 @@ class AuthController
 
     	$_SESSION['token'] = $token->__toString();
 
-    	header('location:/dashboard');
+    	header('location:/');
     }
 
     public function logout()
@@ -42,6 +44,8 @@ class AuthController
 
     public function registerForm()
     {
+        session_start();
+        isset($_SESSION['token']) ? header('Location: /') : '';
     	echo twig()->render('auth/registerForm.html');
     }
 
@@ -61,6 +65,7 @@ class AuthController
 
         if(!$user || !password_verify($credentials['password'], $user->getPassword()))
         {
+            header('location:/login');
             //TO DO: return twig for wrong credentials
         }
         
