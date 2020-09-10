@@ -1,0 +1,29 @@
+<script>
+	var elementId;
+
+	function getId(elId) {
+		 elementId = elId;
+		 toggleEdit(elementId);
+	}
+	function toggleEdit(elementId) {
+		var x = document.getElementById(elementId);
+		if (x.style.display === "none") {
+		  x.style.display = "block";
+		} else {
+		  x.style.display = "none";
+		}
+
+			console.log("The URL of this page is: " + window.location.href);
+		
+	  }
+
+	  document.addEventListener('mouseup', function(e) {  
+		  console.log(elementId);
+		var x = document.getElementById(elementId);
+		if (!x.contains(e.target)) {
+		  x.style.display = 'none';
+		}
+	  })
+
+
+</script>

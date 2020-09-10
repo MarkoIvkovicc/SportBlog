@@ -12,27 +12,7 @@
 
 
 	 <!-- edit button -->
-	 <div class="relative">
-		<button class="ml-auto block focus:outline-none hover:underline" onClick="toggleEdit()">Edit Post</button>
-		<div id="edit-menu" class="border rounded-lg p-4 absolute right-0 shadow-lg" style="display: none;">
-			<div>
-				<form action="/editPost/{{ post.id }}">
-					<div class="w-full flex">
-						<button type="submit" class="text-white rounded text-gray-800 m-3 w-full hover:underline w-full focus:outline-none">Edit Post</button>
-					</div>
-				</form>	
-			</div>
-			<div>
-				<form action="/deletePost/{{ post.id }}" method="POST">
-					<input type="hidden" name="method" value="DELETE">
-					<input type="hidden" name="id" value="{{ post.id }}">
-					<div class="w-full flex">
-						<button type="submit" class="text-white rounded text-gray-800 m-3 w-full hover:underline w-full focus:outline-none">Delete Post</button>
-					</div>
-				</form>
-			</div>	
-		</div>
-	</div>
+	{% include "components/edit-post-button.html" %}
 	<!-- end of edit button -->
 
 
@@ -123,23 +103,7 @@
 
 
 {% block footer_scripts %}
-<script>
-	function toggleEdit() {
-		var x = document.getElementById("edit-menu");
-		if (x.style.display === "none") {
-		  x.style.display = "block";
-		} else {
-		  x.style.display = "none";
-		}
-	  }
-	  document.addEventListener('mouseup', function(e) {
-		var x = document.getElementById('edit-menu');
-		if (!x.contains(e.target)) {
-		  x.style.display = 'none';
-		}
-	  });
-	    
-</script>
+{% include "components/edit-post-button-functions.html" %}
 	{{ parent() }}
 {% endblock footer_scripts %}
 	
