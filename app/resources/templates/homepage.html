@@ -19,7 +19,7 @@
 </head>
 <body class="font-sans leading-normal tracking-normal h-screen">
   {% block header_nav %}
-<div class="flex w-full pl-4 text-sm bg-gray-300 fixed transform" id="navigation" style="opacity: 0.8; padding: 20px; top:0;">
+<div class="flex w-full pl-4 text-sm fixed transform" id="navigation" style="opacity: 0.8; padding: 20px; top:0; background-color: rgb(255,255,255);">
   <div class="text-right text-gray-900 font-bold flex justify-between p-2 w-full "> 
     <div class="flex justify-between">
       <div class="my-auto"> <a class="mx-3 no-underline hover:underline nav-text" href="/">Home</a></div>
@@ -362,13 +362,15 @@
   window.onscroll = function() {scrollFunction()};
   function scrollFunction() {
     console.log('Current scroll from the top: ' + window.pageYOffset);
-    if (window.pageYOffset > 500) {
-      document.getElementById("navigation").style.padding = "0px";
+    if (window.pageYOffset > 371) {
+      document.getElementById("navigation").style.padding = "0px 20px";
       document.getElementById("navigation").style.opacity = 0.5;
-      document.getElementById("navigation").style.transition = "3s";
+      document.getElementById("navigation").style.transition = "0.5s";
+      document.getElementById("navigation").style.backgroundColor = "transparent";
     } else {
       document.getElementById("navigation").style.padding = "20px";
-      document.getElementById("navigation").style.opacity = 0.8;
+      document.getElementById("navigation").style.opacity = 0.7;
+      document.getElementById("navigation").style.backgroundColor = "#fff";
       
     }
   }
