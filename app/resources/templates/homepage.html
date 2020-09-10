@@ -11,6 +11,7 @@
     <meta name="description" content="description here">
 	  <meta name="keywords" content="keywords,here">
     <link href="/public/css/app.css" rel="stylesheet" type="text/css">
+    <link href="/public/css/custom.css" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" rel="stylesheet">
     {% block scripts %}
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -18,7 +19,7 @@
 </head>
 <body class="font-sans leading-normal tracking-normal h-screen">
   {% block header_nav %}
-<div class="flex w-full pl-4 text-sm bg-gray-300 fixed" id="navigation" style="opacity: 0.8; padding: 20px; top:0;">
+<div class="flex w-full pl-4 text-sm bg-gray-300 fixed transform" id="navigation" style="opacity: 0.8; padding: 20px; top:0;">
   <div class="text-right text-gray-900 font-bold flex justify-between p-2 w-full "> 
     <div class="flex justify-between">
       <div class="my-auto"> <a class="mx-3 no-underline hover:underline nav-text" href="/">Home</a></div>
@@ -360,9 +361,11 @@
 <script>
   window.onscroll = function() {scrollFunction()};
   function scrollFunction() {
-    if (document.documentElement.scrollTop > 80) {
+    console.log('Current scroll from the top: ' + window.pageYOffset);
+    if (window.pageYOffset > 500) {
       document.getElementById("navigation").style.padding = "0px";
       document.getElementById("navigation").style.opacity = 0.5;
+      document.getElementById("navigation").style.transition = "3s";
     } else {
       document.getElementById("navigation").style.padding = "20px";
       document.getElementById("navigation").style.opacity = 0.8;

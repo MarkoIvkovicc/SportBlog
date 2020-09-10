@@ -1,6 +1,15 @@
 <form action="/comments/{{ post.id }}" method="POST">
-	<input type="hidden" name="id" value="{{ post.id }}">
-    <label>Add comment</label>
-    <textarea name="body"></textarea>
-    <button type="submit">Submit</button>
+    <div>
+        <input type="hidden"value="{{ post.id }}">
+        <div>
+            <label>Add comment</label>
+        </div>
+      <div>
+        <textarea class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" rows="10" name="body"></textarea>
+      </div>
+        <div class="w-full flex">
+            <button class="text-white bg-green-600 rounded p-3 m-3 w-1/4 hover:bg-green-500 w-full">Save Comment</button>
+        </div>
+    </div>
+	
 </form>
