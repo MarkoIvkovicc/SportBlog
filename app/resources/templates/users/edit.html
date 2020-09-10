@@ -79,7 +79,7 @@
 
 {% block content %}
     
-<form action="/updateUser/{{ user.id }}" method="POST">
+<form action="/updateUser/{{ user.id }}" method="POST" enctype="multipart/form-data">
 	<input type="hidden" name="id" value="{{ user.id }}">
 	<label>Username</label>
 	<input type="textbox" name="username" value="{{ user.name }}">
@@ -92,8 +92,11 @@
 	<br>
 	<label>New Password</label>
 	<input type="textbox" name="new-password">
+	<br>
+	<label>Image</label>
+	<input type="file" name="image">
 
-	<button type="submit">Update</button>
+	<button type="submit" name="submit">Update</button>
 </form>
 <form action="/deleteUser/{{ user.id }}" method="POST">
 	<input type="hidden" name="method" value="DELETE">

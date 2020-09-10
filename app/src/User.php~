@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\src;
 
@@ -32,6 +32,10 @@ class User
      * @ORM\Column(type="string")
      */
     protected $role;
+    /**
+    * @ORM\Column(type="string")
+    */
+    protected $image;
     /** 
      * @ORM\Column(type="datetime", name="created_at")
      */
