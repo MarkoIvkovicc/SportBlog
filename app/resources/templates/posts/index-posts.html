@@ -18,18 +18,21 @@
 <div>
 {% endblock header_title %}
 <div class="mt-20">
-
     {% for post in posts %}
     <div class="p-5">
         <a href="posts/{{ post.id }}" class=" flex justify-between">
-            <div class="text-4xl">
+            <div class="mr-3">
+                <img class="w-16 h-16 rounded-full mr-4 avatar" data-tippy-content="Author Name" src="https://source.unsplash.com/collection/10865343" alt="{{ post.user.name }}" tabindex="0">
+             </div>
+            <div class="text-4xl mr-auto">
                 {{ post.title }}
             </div>
-            <div class="text-sm my-auto">{{ post.createdAt|date('d.m.Y H:i') }}</div>
+            <div class="text-sm my-auto">
+                {{ post.createdAt|date('d.m.Y H:i') }}
+            </div>
         </a>
     </div>
     {% endfor %}
-
 </div>
 
     {% block footer_scripts %}
