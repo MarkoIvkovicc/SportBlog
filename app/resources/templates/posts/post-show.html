@@ -1,11 +1,9 @@
 {% extends "homepage.html" %}
 {% block body_content %}
 {% block header_image %}
-<div class="w-full m-0 p-0 bg-cover bg-bottom" >
+<div class="w-full m-0 p-0 bg-cover bg-bottom mt-40">
 {% endblock header_image %}
-{% block header_nav %}
-    {{ parent() }}
-{% endblock header_nav %}
+
 {% block header_title %}
 <div class="container max-w-4xl mx-auto pt-16 md:pt-5 text-center break-normal ">
      <!--Title-->
@@ -57,6 +55,8 @@
 	<button type="submit">Delete Post</button>
 </form>
 
-
+{% block footer_scripts %}
+	{{ parent() }}
+{% endblock footer_scripts %}
 	
 {% endblock body_content %}
