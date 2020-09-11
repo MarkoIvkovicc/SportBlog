@@ -20,8 +20,22 @@ class UsersController {
 
     public function store() {
       $em = em();
-
       $user = new User;
+
+      $checkIfUsernameExist = em()->getRepository(User::class)->findBy(array('name' => request()->get('name')));
+      $checkIfEmailExist = em()->getRepository(User::class)->findBy(array('email' => request()->get('email')));
+
+      if ($checkIfUsernameExist) {
+        $msgUsername = true;
+        echo twig()->render('auth/registerForm.html', compact('msgUsername')); return;
+      } elseif ($checkIfEmailExist) {
+        $msgEmail = true;
+        echo twig()->render('auth/registerForm.html', compact('msgEmail')); return;
+      } elseif (strlen(request()->get('password')) < 4) {
+        $msgPassword = true;
+        echo twig()->render('auth/registerForm.html', compact('msgPassword')); return;
+      }
+
       $user->setName(request()->get('name'))
         ->setEmail(request()->get('email'))
         ->setPassword(password_hash(request()->get('password'), PASSWORD_BCRYPT))
