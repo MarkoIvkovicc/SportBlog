@@ -4,9 +4,9 @@ namespace App\Controllers;
 
 class StorageController
 {
-	public function uploadImage()
+	public function uploadImage($subPath)
 	{
-		$targetDir = "storage/images/profil/";
+		$targetDir = "storage/images/" . $subPath . "/";
 		$targetFile = $targetDir . basename($_FILES["image"]["name"]);
 		$uploadOk = 1;
 		$imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
@@ -26,19 +26,16 @@ class StorageController
 
 		// Check file size
 		if ($_FILES["image"]["size"] > 500000) {
-			echo "velika";
-			exit();
 			$uploadOk = 0;
+			echo twig()->render('http-codes/413.html'); return;
 		}
-
 		// Allow certain file formats
 		if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
 			$uploadOk = 0;
 		}
-
 		if ($uploadOk == 0) {
-			echo "file could not be uploaded";
-			exit();
+			echo twig()->render('http-codes/400.html');  
+			return;
 		} else {
 			if (! is_dir($targetDir)) {
 				mkdir('./' . $targetDir, 0777, true);
@@ -52,9 +49,9 @@ class StorageController
 		}
 	}
 
-	public function getImage()
+	public function getImage($subPath)
 	{
-		return $this->uploadImage();
+		return $this->uploadImage($subPath);
 	}
 
 	public function deleteImage ($image)

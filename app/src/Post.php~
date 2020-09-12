@@ -24,6 +24,10 @@ class Post
      * @ORM\Column(type="text")
      */
     protected $body;
+    /**
+    * @ORM\Column(type="string", nullable=true)
+    */
+    protected $image;
     /** 
      * @ORM\Column(type="datetime", name="created_at")
      */

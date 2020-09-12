@@ -24,6 +24,10 @@ class Post
      * @ORM\Column(type="text")
      */
     protected $body;
+    /**
+    * @ORM\Column(type="string", nullable=true)
+    */
+    protected $image;
     /** 
      * @ORM\Column(type="datetime", name="created_at")
      */
@@ -138,5 +142,29 @@ class Post
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set image.
+     *
+     * @param string|null $image
+     *
+     * @return Post
+     */
+    public function setImage($image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image.
+     *
+     * @return string|null
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

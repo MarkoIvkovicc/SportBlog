@@ -33,7 +33,7 @@ class User
      */
     protected $role;
     /**
-    * @ORM\Column(type="string")
+    * @ORM\Column(type="string", nullable=true)
     */
     protected $image;
     /** 
@@ -175,5 +175,29 @@ class User
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set image.
+     *
+     * @param string $image
+     *
+     * @return User
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image.
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }
