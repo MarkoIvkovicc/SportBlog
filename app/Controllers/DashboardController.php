@@ -2,13 +2,8 @@
 
 namespace App\Controllers;
 
-<<<<<<< HEAD
 use App\src\User;
 use App\Models\User as UserModel;
-=======
-use App\src\Post;
-use App\Models\User;
->>>>>>> dashboard post index twig created
 
 class DashboardController {
   
