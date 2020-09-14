@@ -8,11 +8,11 @@ use App\src\User as UserEM;
 use App\Models\User as UserModel;
 
 class PostsController
-{
+  {
     public function index () {
       $posts = em()->getRepository(Post::class)->findAll();
-      echo twig()->render('homepage.html', compact('posts'));
-    }
+      echo twig()->render('posts/index-posts.html', compact('posts'));
+  }
 
     public function create () {
       echo twig()->render('posts/post-create.html');  

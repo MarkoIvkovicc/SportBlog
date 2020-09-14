@@ -1,14 +1,64 @@
-<ul>
-	<li>{{ user.name }}</li>
-	<li>{{ user.email }}</li>
-</ul>
+{% extends "homepage.html" %}
+{% block scripts %}
+   {{ parent() }}
+    {% endblock scripts %}
+{% block body_content %}
+{% block header_image %}
+<div class="w-full m-0 p-0 bg-cover bg-bottom mt-40">
+{% endblock header_image %}
 
-<form action="/editUser/{{ user.id }}">
-	<button type="submit">Edit User</button>
-</form>
+{% block header_title %}
+<div class="container max-w-4xl mx-auto pt-16 md:pt-5 text-center break-normal ">
+	 <!--Title-->
+	 <!-- edit button -->
+<div>
+	<a href="/editUser/{{ user.id }}">Edit User</a>
+</div>
+	<!-- end of edit button -->
+     <div class="text-xl md:text-6xl text-gray-700">
+		 <div class="">
+			<div class="mb-20">
+				{{ user.name }}
+			 </div>
+			 <div class="text-sm text-left flex">
+				 <div class="h-16 w-16 rounded-full overflow-hidden mr-4">
+					<img class="w-full h-full object-cover avatar" data-tippy-content="Author Name" src="https://source.unsplash.com/collection/10865343" alt="{{ user.name }}" tabindex="0">
+				 </div>
+				 
+			</div>
 
-<form action="/deleteUser/{{ user.id }}" method="POST">
-	<input type="hidden" name="method" value="DELETE">
-	<input type="hidden" name="id" value="{{ user.id }}">
-	<button type="submit">Delete User</button>
-</form>
+			 {% for post in user.posts %}
+				 {{ post.title }}
+			 {% endfor %}
+			 <div class="mt-auto">
+				{{ user.email }}
+			 </div>
+			
+		 </div>
+		 <hr class="mt-10">
+     </div>
+
+ {% endblock header_title %}
+ <div class="mt-20 p-5">
+
+	{% autoescape %}
+		<div class="text-lg">
+		{{ post.body|raw }}
+		</div>
+
+	{% endautoescape %}
+	</div>
+</div>
+
+
+
+{% block footer_scripts %}
+{% include "components/edit-post-button-functions.html" %}
+<script>
+	//Init tooltips
+	tippy('.avatar')
+	</script>
+	{{ parent() }}
+{% endblock footer_scripts %}
+	
+{% endblock body_content %}
