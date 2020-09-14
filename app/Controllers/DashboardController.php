@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use App\src\User;
 use App\src\Post;
+use App\src\User;
 use App\Models\User as UserModel;
 
 class DashboardController {
@@ -13,13 +13,8 @@ class DashboardController {
         echo twig()->render('admin/posts-index.html', compact('posts'));
     }
 
-    public function commentsIndex () {
-        $comments = em()->getRepository(Comment::class)->findAll();
-        echo twig()->render('admin/comments-index.html', compact('comments'));
-    }
-
     public function usersIndex () {
-        $users = em()->getRepository('App\src\User')->findAll();
+        $users = em()->getRepository(User::class)->findAll();
         echo twig()->render('admin/users-index.html', compact('users'));
     }
 

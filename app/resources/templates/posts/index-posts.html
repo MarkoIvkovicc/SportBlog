@@ -21,9 +21,9 @@
     {% for post in posts %}
     <div class="p-5 flex justify-between">
        
-            <div class="mr-3">
-                <img class="w-16 h-16 rounded-full mr-4 avatar" data-tippy-content="Author Name" src="https://source.unsplash.com/collection/10865343" alt="{{ post.user.name }}" tabindex="0">
-             </div>
+        <div class="h-16 w-16 rounded-full overflow-hidden mr-4">
+			<img class="w-full h-full object-cover avatar" data-tippy-content="Author Name" src="https://source.unsplash.com/collection/10865343" alt="{{ post.user.name }}" tabindex="0">
+		 </div>
         <div>
             <a href="posts/{{ post.id }}" class=" flex justify-between">
                 <div class="text-4xl mr-auto">
@@ -32,7 +32,9 @@
             </a>
         </div>
         <div class="my-auto">
-            {% include "components/edit-post-button.html" %}
+            {% if admin %}
+                {% include "components/edit-post-button.html" %}
+            {% endif %}
         </div>
         
            
