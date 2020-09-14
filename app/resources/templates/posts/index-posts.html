@@ -1,0 +1,58 @@
+{% extends "homepage.html" %}
+
+{% block body_content %}
+
+{% block header_nav %}
+    {{ parent() }}
+{% endblock header_nav %}
+{% block header_title %}
+<div class="container max-w-4xl mx-auto pt-16 md:pt-5 text-center break-normal mt-20">
+    <!--Title-->
+    
+    <p class="text-gray-700 font-extrabold text-3xl md:text-5xl">
+      Sport Blog
+    </p>
+    <p class="text-xl md:text-2xl text-gray-500">
+      POSTS
+    </p>
+<div>
+{% endblock header_title %}
+<div class="mt-20">
+    {% for post in posts %}
+    <div class="p-5 flex justify-between">
+       
+            <div class="mr-3">
+                <img class="w-16 h-16 rounded-full mr-4 avatar" data-tippy-content="Author Name" src="https://source.unsplash.com/collection/10865343" alt="{{ post.user.name }}" tabindex="0">
+             </div>
+        <div>
+            <a href="posts/{{ post.id }}" class=" flex justify-between">
+                <div class="text-4xl mr-auto">
+                    {{ post.title }}
+                </div>
+            </a>
+        </div>
+        <div class="my-auto">
+            {% include "components/edit-post-button.html" %}
+        </div>
+        
+           
+            <div class="text-sm my-auto">
+                {{ post.createdAt|date('d.m.Y H:i') }}
+            </div>
+        
+    </div>
+    {% endfor %}
+</div>
+
+    {% block footer_scripts %}
+
+        {% include "components/edit-post-button-functions.html" %}
+ 
+    
+        {{ parent() }}
+    {% endblock footer_scripts %}
+
+
+{% endblock body_content %}
+
+

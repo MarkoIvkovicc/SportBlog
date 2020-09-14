@@ -1,26 +1,43 @@
+{% extends "layouts/admin/admin-layout.html" %}
 {% block title %}
     <title>Create Post</title>
 {% endblock title %}
-{% block content %}
-<form action="/posts" method="POST">
-    <div>
-        <div class="w-full text-left">
-            <div class="text-2xl mb-5">
-                <label for="title">Post Title</label>
+{% block scripts %}
+<script src="https://cdn.tiny.cloud/1/rjop1kl90me77vjkt7io6nipc63kscevcbgfe70vj2h878zx/tinymce/5/tinymce.min.js" referrerpolicy="origin">
+</script>
+{% endblock scripts %}
+{% block main_content %}
+<div class="container p-5">
+    <form action="/posts" method="POST">
+        <div>
+            <div class="w-full text-center">
+                <div class="text-3xl mb-5">
+                    <label for="title">Post Title</label>
+                </div>
+                <div>
+                    <input class="w-full p-3 mb-5 border" type="text" name="title" placeholder="Enter post title">
+                </div>
             </div>
-            <div>
-                <input class="w-full p-3 mb-5" type="text" name="title">
+            <div class="w-full text-center">
+                <div class="text-3xl mb-5">
+                    <label for="body">Post Body</label>
+                </div>
+                <div>
+                    <textarea class="w-full" type="text" name="body" rows="20"></textarea>
+                </div>
             </div>
+        </div> 
+        <div class="w-full flex">
+            <button class="text-white bg-green-600 rounded p-3 m-3 w-1/4 hover:bg-green-500 w-full">Save Post</button>
         </div>
-        <div class="w-full text-left">
-            <div class="text-2xl mb-5">
-                <label for="body">Post Body</label>
-            </div>
-            <div>
-                <input class="w-full" type="text" name="body">
-            </div>
-        </div>
-    </div> 
-    <button class="text-white bg-green-400 rounded p-3 m-3 w-1/4 hover:bg-green-200 hover:text-gray-700">Save Post</button>
-</form>
-{% endblock content %}
+    </form>
+</div>
+{% endblock main_content %}
+{% block footer_scripts %}
+<script>
+    tinymce.init({
+      selector: 'textarea'
+    });
+  </script>
+  {{ parent() }}
+{% endblock footer_scripts %}

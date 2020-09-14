@@ -1,41 +1,110 @@
-{% block content %}
+{% extends "homepage.html" %}
+{% block body_content %}
+{% block header_image %}
+<div class="w-full m-0 p-0 bg-cover bg-bottom mt-40">
+{% endblock header_image %}
 
-{{ post.title }}
-<br>
-{{ post.body }}
-<br>
-{{ post.user.name }}
-<br>
-<h3>Comments section</h3>
-<br>
+{% block header_title %}
+<div class="container max-w-4xl mx-auto pt-16 md:pt-5 text-center break-normal ">
+	 <!--Title-->
+
+
+
+
+	 <!-- edit button -->
+	{% include "components/edit-post-button.html" %}
+	<!-- end of edit button -->
+
+
+
+
+
+
+     <div class="text-xl md:text-6xl text-gray-700">
+		 <div class="">
+			<div class="mb-20">
+				{{ post.title }}
+			 </div>
+			 <div class="text-sm text-left flex">
+				 <div class="h-16 w-16 rounded-full overflow-hidden mr-4">
+					<img class="w-full h-full object-cover" data-tippy-content="Author Name" src="https://source.unsplash.com/collection/10865343" alt="{{ post.user.name }}" tabindex="0">
+				 </div>
+
+				 <div class="italic hover:underline mt-auto">
+					<a href="/users/{{ post.user.id }}">{{ post.user.name }}</a>
+				 </div>
+			</div>
+			
+			
+		 </div>
+		 <hr class="mt-10">
+     </div>
+
+ {% endblock header_title %}
+ <div class="mt-20 p-5">
+
+{% autoescape %}
+<div class="text-lg">
+	{{ post.body|raw }}
+</div>
+
+{% endautoescape %}
+</div>
+
+
+
 
 {% for comment in comments %}
-	<li>{{ comment.body }}</li>
-	{{ comment.user.name }}
-	{{ comment.createdAt|date('d.m.Y H:i') }}
+<div class="border rounded-lg p-5 mb-8">
+	<div class="flex mb-5">
+		<div class="h-16 w-16 rounded-full overflow-hidden mr-4">
+			<img class="w-full h-full object-cover" data-tippy-content="Author Name" src="https://source.unsplash.com/collection/10865343" alt="{{ post.user.name }}" tabindex="0">
+		 </div>
+		<div class="mr-5 my-auto">
+			<a href="{{ comment.user.id }}" class="hover:underline" >{{ comment.user.name }}</a>
+		</div>
+		<div class="text-sm text-gray-500 my-auto">
+			{{ comment.createdAt|date('d.m.Y H:i') }}
+		</div>
+	</div>
+	
+	<div class="border rounded-lg p-5 text-left">
+		{{ comment.body }}
+	</div>
+	
+		<div class="flex justify-end p-3">
+			<div class="mr-3">
+				<form action="/editComment/{{ comment.id }}">
+					<div class="w-full flex">
+						<button type="submit" class="text-white bg-blue-600 rounded py-1 px-2 m-3 w-1/4 hover:bg-blue-500 w-full">Edit Comment</button>
+					</div>
+				</form>	
+			</div>
+			<div>
+				<form action="/deleteComment/{{ comment.id }}" method="POST">
+					<input type="hidden" name="method" value="DELETE">
+					<input type="hidden" name="id" value="{{ commment.id }}">
+					<div class="w-full flex">
+						<button type="submit" class="text-white bg-red-600 rounded py-1 px-2 m-3 w-1/4 hover:bg-red-500 w-full">Delete Comment</button>
+					</div>
+				</form>
+			</div>		
+		</div>
+		
+	
+		
+</div>
 
-	<form action="/editComment/{{ comment.id }}">
-		<button type="submit">Edit Comment</button>
-	</form>
-
-	<form action="/deleteComment/{{ comment.id }}" method="POST">
-		<input type="hidden" name="method" value="DELETE">
-		<input type="hidden" name="id" value="{{ commment.id }}">
-		<button type="submit">Delete Comment</button>
-	</form>
 {% endfor %}
 
 {% include "comments/comment-create.html" %}
 
 
-<form action="/editPost/{{ post.id }}">
-	<button type="submit">Edit Post</button>
-</form>
 
-<form action="/deletePost/{{ post.id }}" method="POST">
-	<input type="hidden" name="method" value="DELETE">
-	<input type="hidden" name="id" value="{{ post.id }}">
-	<button type="submit">Delete Post</button>
-</form>
 
-{% endblock %}
+{% block footer_scripts %}
+{% include "components/edit-post-button-functions.html" %}
+	{{ parent() }}
+{% endblock footer_scripts %}
+	
+{% endblock body_content %}

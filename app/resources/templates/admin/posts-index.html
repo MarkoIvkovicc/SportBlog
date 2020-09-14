@@ -1,7 +1,35 @@
 {% extends "layouts/admin/admin-layout.html" %}
 {% block title %}<title>Posts Index</title>{% endblock title %}
 {% block main_content %}
+
 <div class="bg-blue-800 p-2 shadow text-xl text-white">
     <h3 class="font-bold pl-2">Posts</h3>
+</div>
+<div class="p-10">
+{% for post in posts %}
+        <div class="md:flex md:justify-between p-5 hover:shadow-xl rounded-lg">
+            <div class="my-auto mb-5 md-mb-0">
+                <a href="/posts/{{ post.id }}" class="text-2xl no-underline hover:underline mr-5">{{ post.title }}</a>
+                <div class="text-sm my-auto">{{ post.createdAt|date('d.m.Y H:i') }}</div>
+            </div>
+            <div class="flex justify-between">
+                <div class="mr-3">
+                    <form action="/editPost/{{ post.id }}">
+                        <button class="text-white bg-blue-600 rounded p-3 m-3 w-1/4 hover:bg-blue-500 w-full" type="submit">Edit Post</button>
+                    </form>
+                </div>
+                <div>
+                    <form action="/deletePost/{{ post.id }}" method="POST" class="w-full flex">
+                        <input type="hidden" name="method" value="DELETE">
+                        <input type="hidden" name="id" value="{{ post.id }}">
+                        <button class="text-white bg-red-600 rounded p-3 m-3 w-1/4 hover:bg-red-500 w-full">Delete Post</button>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+        
+
+    {% endfor %}
 </div>
 {% endblock main_content %}
