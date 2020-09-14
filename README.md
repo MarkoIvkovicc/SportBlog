@@ -22,8 +22,10 @@ or
    
 >If doctrine command listed now you must generate entities and fill database with tables made from this entities by folowing steps
   - First create database schema without any table
+  - Comment namespaces in existing entities
   - Run next `DOCTRINE` commands
     ```sh
-    orm:generate-entities src
+    orm:generate-entities app/src
     orm:schema-tool:create
     ```
+  - Uncomment namespaces in every entities
