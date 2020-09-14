@@ -26,10 +26,16 @@
       <div class="my-auto"> <a class="mx-3 no-underline hover:underline nav-text" href="/posts">Posts</a></div>
     </div>
    <div class="flex justify-between"> 
-    <div class="my-auto"> <a class="mx-3 no-underline hover:underline nav-text" href="/logout">Logout</a></div>
-    <div class="my-auto"> <a class="no-underline hover:underline nav-text" href="/login">Login</a></div>
-    <div class="my-auto"><a class="mx-3 no-underline hover:underline nav-text" href="/register">Register</a></div>   
-    <div class="my-auto"><a class="mx-3 no-underline hover:underline nav-text" href="/dashboard">Dashboard</a></div>
+    {% if logged %}
+      <div class="my-auto"> <a class="mx-3 no-underline hover:underline nav-text" href="/logout">Logout</a></div>
+    {% else %}
+      <div class="my-auto"> <a class="no-underline hover:underline nav-text" href="/login">Login</a></div>
+      <div class="my-auto"><a class="mx-3 no-underline hover:underline nav-text" href="/register">Register</a></div>   
+    {% endif %}
+
+    {% if admin %}
+      <div class="my-auto"><a class="mx-3 no-underline hover:underline nav-text" href="/dashboard">Dashboard</a></div>
+    {% endif %}
     <!-- social icons -->
     <div class="flex justify-end content-center text-center">		
       <a class="m-auto inline-block text-gray-500 no-underline hover:text-white hover:text-underline text-center h-10 p-2 md:h-auto md:p-2 avatar" data-tippy-content="@twitter_handle" href="https://twitter.com/intent/tweet?url=#">

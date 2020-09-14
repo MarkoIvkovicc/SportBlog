@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\src\User;
+use App\src\Post;
 use App\Models\User as UserModel;
 
 class DashboardController {
