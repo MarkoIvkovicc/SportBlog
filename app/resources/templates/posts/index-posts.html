@@ -32,7 +32,9 @@
             </a>
         </div>
         <div class="my-auto">
-            {% include "components/edit-post-button.html" %}
+            {% if admin %}
+                {% include "components/edit-post-button.html" %}
+            {% endif %}
         </div>
         
            

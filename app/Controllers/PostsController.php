@@ -10,8 +10,17 @@ use App\Models\User as UserModel;
 class PostsController
   {
     public function index () {
+      session_start();
+    	$admin = $logged = null;
+
+    	if (isset($_SESSION['token'])) {
+	    	$user = new UserModel;
+	    	$user->isAdmin() ? $admin = true : '';
+	    	isset($user) ? $logged = true : $logged = false;
+    	}
+    
       $posts = em()->getRepository(Post::class)->findAll();
-      echo twig()->render('posts/index-posts.html', compact('posts'));
+      echo twig()->render('posts/index-posts.html', compact('posts', 'admin', 'logged'));
   }
 
     public function create () {
