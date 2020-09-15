@@ -9,15 +9,11 @@
 	 <!--Title-->
 
 
-
-
 	 <!-- edit button -->
-	{% include "components/edit-post-button.html" %}
+	{% if (admin) or (post.user.id == user.id) %}
+		{% include "components/edit-post-button.html" %}
+	{% endif %}
 	<!-- end of edit button -->
-
-
-
-
 
 
      <div class="text-xl md:text-6xl text-gray-700">
@@ -51,7 +47,7 @@
 {% endautoescape %}
 </div>
 
-
+<img src="/{{ post.image }}" alt="Image in post" width="150" height="120">
 
 
 {% for comment in comments %}
@@ -61,7 +57,7 @@
 			<img class="w-full h-full object-cover" data-tippy-content="Author Name" src="https://source.unsplash.com/collection/10865343" alt="{{ post.user.name }}" tabindex="0">
 		 </div>
 		<div class="mr-5 my-auto">
-			<a href="{{ comment.user.id }}" class="hover:underline" >{{ comment.user.name }}</a>
+			<a href="/users/{{ comment.user.id }}" class="hover:underline" >{{ comment.user.name }}</a>
 		</div>
 		<div class="text-sm text-gray-500 my-auto">
 			{{ comment.createdAt|date('d.m.Y H:i') }}
@@ -72,6 +68,7 @@
 		{{ comment.body }}
 	</div>
 	
+	{% if (admin) or (comment.user.id == user.id) %}
 		<div class="flex justify-end p-3">
 			<div class="mr-3">
 				<form action="/editComment/{{ comment.id }}">
@@ -90,9 +87,8 @@
 				</form>
 			</div>		
 		</div>
-		
+	{% endif %}
 	
-		
 </div>
 
 {% endfor %}

@@ -11,7 +11,7 @@ class PostsController
   {
     public function index () {
       session_start();
-    	$admin = $logged = null;
+      $admin = $logged = $user = null;
 
     	if (isset($_SESSION['token'])) {
 	    	$user = new UserModel;
@@ -20,11 +20,14 @@ class PostsController
     	}
     
       $posts = em()->getRepository(Post::class)->findAll();
-      echo twig()->render('posts/index-posts.html', compact('posts', 'admin', 'logged'));
+      echo twig()->render('posts/index-posts.html', compact('posts', 'admin', 'logged', 'user'));
   }
 
     public function create () {
-      echo twig()->render('posts/post-create.html');  
+      $user = new UserModel;        
+      $user->isAdmin() ? $admin = true : $admin = false;
+
+      echo twig()->render('posts/post-create.html', compact('admin'));  
     }
 
     public function store () {
@@ -48,7 +51,11 @@ class PostsController
     {
       $post = em()->find(Post::class, $id);
       $comments = $this->getCommentsByPostId($id);
-      echo twig()->render('posts/post-show.html', compact('post', 'comments'));
+      $user = new UserModel;
+      $user->isAdmin() ? $admin = true : $admin = false;
+      isset($user) ? $logged = true : $logged = false;
+      
+      echo twig()->render('posts/post-show.html', compact('post', 'comments', 'user', 'admin', 'logged'));
     }
 
     public function edit ($id)
@@ -79,7 +86,10 @@ class PostsController
       $em->remove($post);
       $em->flush();
 
-      return header("Location: /dashboard");
+      isset($_SERVER['HTTP_REFERER']) ? $explode = explode('/', $_SERVER['HTTP_REFERER']) : '';
+      $explode[3] == 'dashboard' ? $route = '/dashboard/posts' : $route = '/posts';
+
+      return header("Location: " . $route);
     }
 
     //Post ID goes in parameter

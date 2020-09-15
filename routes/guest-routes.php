@@ -15,3 +15,4 @@ $router->get('/posts/{id}', '\App\Controllers\PostsController@show');
 
 // Users
 $router->post('/users', '\App\Controllers\UsersController@store');
+$router->get('/users/{id}', '\App\Controllers\UsersController@show');
