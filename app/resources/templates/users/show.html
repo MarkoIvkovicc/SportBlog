@@ -12,7 +12,9 @@
 	 <!--Title-->
 	 <!-- edit button -->
 <div>
-	<a href="/editUser/{{ user.id }}">Edit User</a>
+	{% if (admin) or (user.id == userModel.id) %}
+		<a href="/editUser/{{ user.id }}">Edit User</a>
+	{% endif %}
 </div>
 	<!-- end of edit button -->
      <div class="text-xl md:text-6xl text-gray-700">
@@ -27,8 +29,8 @@
 				 
 			</div>
 
-			 {% for post in user.posts %}
-				 {{ post.title }}
+			 {% for post in posts %}
+				 <a href="/posts/{{post.id}}">{{ post.title }}</a>
 			 {% endfor %}
 			 <div class="mt-auto">
 				{{ user.email }}

@@ -3,16 +3,11 @@
 namespace App\Controllers;
 
 use App\src\User;
+use App\Models\User as UserModel;
+use App\src\Post;
 
 class UsersController {
-
-    public function index() 
-    {
-      $users = em()->getRepository(User::class)->findAll();
-
-      echo twig()->render('users/index.html', compact('users'));
-    }
-
+  
     public function create()
     {
       echo twig()->render('users/create.html');  
@@ -56,7 +51,18 @@ class UsersController {
         exit();
       }
 
-      echo twig()->render('users/show.html', compact('user'));
+      session_start();
+      $admin = $logged = null;
+
+      if (isset($_SESSION['token'])) {
+        $userModel = new UserModel;
+        $userModel->isAdmin() ? $admin = true : $admin = false;
+        isset($userModel) ? $logged = true : $logged = false;
+      }
+
+      $posts = em()->getRepository(Post::class)->findBy(array('user' => $user));
+
+      echo twig()->render('users/show.html', compact('user', 'logged', 'admin', 'userModel', 'posts'));
     }
 
     public function update($id)

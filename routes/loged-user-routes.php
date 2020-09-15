@@ -2,6 +2,7 @@
 
 // Posts
 // Loged user or admin
+$router->get('/dashboard/posts', '\App\Controllers\DashboardController@postsIndex');
 $router->get('/posts/create', '\App\Controllers\PostsController@create');
 $router->post('/posts', '\App\Controllers\PostsController@store');
 // Route for admins and post owners only
@@ -20,6 +21,5 @@ $router->post('/comments/{id}', '\App\Controllers\CommentsController@store');
 //Users
 // Routes for admins and profile owners only !!!
 $router->get('/editUser/{id}', '\App\Controllers\UsersController@edit');
-$router->get('/users/{id}', '\App\Controllers\UsersController@show');
 $router->post('/updateUser/{id}', '\App\Controllers\UsersController@update');
 $router->post('/deleteUser/{id}', '\App\Controllers\UsersController@delete');

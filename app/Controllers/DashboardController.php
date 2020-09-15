@@ -9,16 +9,32 @@ use App\Models\User as UserModel;
 class DashboardController {
   
     public function postsIndex () {
-        $posts = em()->getRepository(Post::class)->findAll();
-        echo twig()->render('admin/posts-index.html', compact('posts'));
+        $user = new UserModel;
+
+        if ($user->isAdmin()) {
+            $posts = em()->getRepository(Post::class)->findAll();
+        } elseif ($user->isUser()) {
+            $posts = em()->getRepository(Post::class)->findBy(array('user' => $user));
+        }
+
+        $user->isAdmin() ? $admin = true : $admin = false;
+
+        echo twig()->render('admin/posts-index.html', compact('posts', 'admin'));
     }
 
     public function usersIndex () {
         $users = em()->getRepository(User::class)->findAll();
-        echo twig()->render('admin/users-index.html', compact('users'));
+
+        $userModel = new UserModel;
+        $userModel->isAdmin() ? $admin = true : $admin = false;
+
+        echo twig()->render('admin/users-index.html', compact('users', 'admin'));
     }
 
     public function index () {
+        $user = new UserModel;        
+        $user->isAdmin() ? $admin = true : $admin = false;
+
         //Total tables counts
         $queryTotal = 'SELECT
            (SELECT COUNT(u.id) FROM users u) as usersCount, 
@@ -77,11 +93,7 @@ class DashboardController {
 
         $countsLast3Months = $statLast3Months->fetchAll();
         $countsLast3Months = array_shift($countsLast3Months);
-
-        //Get Loged User Id
-        $userId = new UserModel;
-        $userId = $userId->getId();
-
-        echo twig()->render('layouts/admin/admin-layout.html', compact('countsTotal', 'countsLastMonth', 'countsLast3Months', 'userId'));
+        
+        echo twig()->render('layouts/admin/admin-layout.html', compact('countsTotal', 'countsLastMonth', 'countsLast3Months', 'user', 'admin'));
     }
 }
