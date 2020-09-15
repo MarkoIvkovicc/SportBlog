@@ -35,11 +35,19 @@ class PostsController
       $post = new Post;
       $UserModel = new UserModel;
       $userEM = $em->find(UserEM::class, $UserModel->getId());
+      $storage = new StorageController();
       
       $post->setTitle(request()->get('title'));
       $post->setBody(request()->get('body'));
       $post->setUser($userEM);
       $post->setCreatedAt(new \DateTime);
+
+      if ($post->getImage() != null) {
+        $storage->deleteImage($post->getImage());
+      }
+      
+      $subDir = "post";
+      $post->setImage($storage->getImage($subDir));
 
       $em->persist($post);
       $em->flush();
@@ -71,6 +79,15 @@ class PostsController
 
       $post->getTitle() != request()->get('title') ? $post->setTitle(request()->get('title')) : '';
       $post->getBody() != request()->get('body') ? $post->setBody(request()->get('body')) : '';
+
+      $storage = new StorageController();
+
+      if ($post->getImage() != null) {
+        $storage->deleteImage($post->getImage());
+      }
+      
+      $subDir = "post";
+      $post->setImage($storage->getImage($subDir));
 
       $em->merge($post);
       $em->flush();

@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\src;
 
@@ -32,6 +32,10 @@ class User
      * @ORM\Column(type="string")
      */
     protected $role;
+    /**
+    * @ORM\Column(type="string", nullable=true)
+    */
+    protected $image;
     /** 
      * @ORM\Column(type="datetime", name="created_at")
      */
@@ -171,5 +175,29 @@ class User
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set image.
+     *
+     * @param string $image
+     *
+     * @return User
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image.
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }
