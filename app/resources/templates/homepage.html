@@ -24,6 +24,9 @@
     <div class="flex justify-between">
       <div class="my-auto"> <a class="mx-3 no-underline hover:underline nav-text" href="/">Home</a></div>
       <div class="my-auto"> <a class="mx-3 no-underline hover:underline nav-text" href="/posts">Posts</a></div>
+      {% if logged %}
+        <div class="my-auto"> <a class="mx-3 no-underline hover:underline nav-text" href="/posts/create">Create a new <u>Post</u></a></div>
+      {% endif %}
     </div>
    <div class="flex justify-between"> 
     
@@ -87,25 +90,24 @@
 
     <div class="bg-gray-200 w-full text-xl md:text-2xl text-gray-800 leading-normal rounded-lg">
      <!--Lead Card-->
+      
     <div class="flex h-full bg-white overflow-hidden shadow-lg rounded-lg">
-    <a href="post.html" class="flex flex-wrap no-underline hover:no-underline">
+    <a href="/posts/{{ fetchLast4[0].id}}" class="flex flex-wrap no-underline hover:no-underline">
     <div class="w-full md:w-2/3 rounded-b">	
-      <img src="https://source.unsplash.com/collection/190727/1600x900" class="h-full w-full shadow">
+      <img src="{{ fetchLast4[0].image }}" class="h-full w-full shadow">
     </div>
     <div class="w-full md:w-1/3 flex flex-col flex-grow flex-shrink">
       <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
-        
-        <div class="w-full font-bold text-xl text-gray-900 px-6 mb-5 mt-5">{{ posts['title']}}</div>
-        <p class="text-gray-800 font-serif text-base px-6 mb-5">
-           
-          Teaser Post body .... Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente corrupti obcaecati aliquam eaque possimus qui soluta harum natus dolor, necessitatibus aut exercitationem fuga labore fugit blanditiis accusantium suscipit sunt non.
-        </p>
+        {% autoescape %}
+        <div class="w-full font-bold text-xl text-gray-900 px-6 mb-5 mt-5">{{ fetchLast4[0].title|raw }}</div>
+        <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ fetchLast4[0].body|raw }}</p>
+        {% endautoescape %}
       </div>
 
       <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
         <div class="flex items-center justify-between">
-          <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="Author Name" src="http://i.pravatar.cc/300" alt="Avatar of Author">
-          <p class=" text-gray-600 text-xs md:text-sm px-6"> CREATED AT</p>
+          <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ usersName[0] }}" src="{{ usersImg[0] }}" alt="Avatar of Author">
+          <p class=" text-gray-600 text-xs md:text-sm px-6"> CREATED AT {{ fetchLast4[0].create_at|date('d.m.Y H:i') }}</p>
           <p class="text-gray-600 text-xs">1 MIN READ</p>
         </div>
       </div>
