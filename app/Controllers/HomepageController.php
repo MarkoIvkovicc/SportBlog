@@ -4,24 +4,29 @@ namespace App\Controllers;
 
 use App\src\User;
 use App\Models\User as UserModel;
+use App\src\Post;
+use DateTime;
+use DateInterval;
 
 class HomepageController {
     public function index () {
+        //Get Last 4 Created Posts
+        $last4 = em()->getRepository(Post::class)->findBy(array(),array('id'=>'DESC'),4,0);
 
-        $queryLast4 = 'SELECT * FROM Posts ORDER BY id DESC LIMIT 4';
-        
-        $statLast4 = em()->getConnection()->prepare($queryLast4);
-        $statLast4->execute();
+        $lastPost = $last4[0];
+        $last3Posts = array_slice($last4, 1);
 
-        $fetchLast4 = $statLast4->fetchAll();
+        //Get Last 4 Created Posts Older Than 31 Days
+        $now = new DateTime();
+        $back = $now->sub(DateInterval::createFromDateString('31 days'));
+        $back = $back->format('y-m-d H:i');
 
-        foreach ($fetchLast4 as $key => $value) {
-            $usersId = array_shift(em()->getRepository(User::class)->findBy(array('id' => $value['owner_id'])));
-            $usersImg[] = $usersId->getImage();
-            $usersName[] = $usersId->getName();
-        }
+        $pastMonth = em()->createQuery("SELECT p FROM App\src\Post p WHERE p.createdAt < '$back' ORDER BY p.createdAt DESC")->setMaxResults(4)->getResult();
 
-    	// session_start();
+        $pastMonthFirst2 = array_slice($pastMonth, 0, 2);
+        $pastMonthLast2 = array_slice($pastMonth, 2, 2);
+
+    	session_start();
     	$admin = $logged = null;
 
     	if (isset($_SESSION['token'])) {
@@ -30,6 +35,6 @@ class HomepageController {
 	    	isset($user) ? $logged = true : $logged = false;
     	}
 
-        echo twig()->render('homepage.html', compact('admin', 'logged', 'fetchLast4', 'usersImg', 'usersName')); 
+        echo twig()->render('homepage.html', compact('admin', 'logged', 'lastPost', 'last3Posts', 'pastMonthFirst2', 'pastMonthLast2')); 
     }
 } 

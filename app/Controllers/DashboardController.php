@@ -19,16 +19,16 @@ class DashboardController {
 
         $user->isAdmin() ? $admin = true : $admin = false;
 
-        echo twig()->render('admin/posts-index.html', compact('posts', 'admin'));
+        echo twig()->render('admin/posts-index.html', compact('posts', 'admin', 'user'));
     }
 
     public function usersIndex () {
         $users = em()->getRepository(User::class)->findAll();
 
-        $userModel = new UserModel;
-        $userModel->isAdmin() ? $admin = true : $admin = false;
+        $user = new UserModel;
+        $user->isAdmin() ? $admin = true : $admin = false;
 
-        echo twig()->render('admin/users-index.html', compact('users', 'admin'));
+        echo twig()->render('admin/users-index.html', compact('users', 'admin', 'user'));
     }
 
     public function index () {
