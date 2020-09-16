@@ -87,9 +87,8 @@ class UsersController {
       if ($user->getImage() != null) {
         $storage->deleteImage($user->getImage());
       }
-
-      $subDir = "profil";
-      $user->setImage($storage->getImage($subDir));
+      
+      $user->setImage($storage->getImage('user', $id));
 
       $em->merge($user);
       $em->flush();
