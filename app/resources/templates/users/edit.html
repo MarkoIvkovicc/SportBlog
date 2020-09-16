@@ -11,7 +11,7 @@
 
 {% block main_content %}
 <div class="container p-5">
-    <form action="/updateUser/{{ user.id }}" method="POST">
+    <form action="/updateUser/{{ user.id }}" method="POST" enctype="multipart/form-data">
         <div>
 			<input type="hidden" name="id" value="{{ user.id }}">
             <div class="w-full text-center">
@@ -53,7 +53,11 @@
                     <option value="admin">Admin</option>
                 </select>
             </div>
-            
+            <div>
+                <img src="/{{ user.image }}" alt="Avatar of Author">
+                <label>Image</label>
+                <input type="file" name="image">
+            </div>
         </div> 
         <div class="w-full flex">
             <button type="submit" class="text-white bg-green-600 rounded p-3 m-3 w-1/4 hover:bg-green-500 w-full">Update User</button>
@@ -76,32 +80,3 @@
   </script>
   {{ parent() }}
 {% endblock footer_scripts %}
-
-{% block content %}
-    
-<form action="/updateUser/{{ user.id }}" method="POST" enctype="multipart/form-data">
-	<input type="hidden" name="id" value="{{ user.id }}">
-	<label>Username</label>
-	<input type="textbox" name="username" value="{{ user.name }}">
-	<br>
-	<label>Email</label>
-	<input type="textbox" name="email" value="{{ user.email }}">
-	<br>
-	<label>Current Password</label>
-	<input type="textbox" name="old-password">
-	<br>
-	<label>New Password</label>
-	<input type="textbox" name="new-password">
-	<br>
-	<label>Image</label>
-	<input type="file" name="image">
-
-	<button type="submit" name="submit">Update</button>
-</form>
-<form action="/deleteUser/{{ user.id }}" method="POST">
-	<input type="hidden" name="method" value="DELETE">
-	<input type="hidden" name="id" value="{{ user.id }}">
-	<button type="submit">Delete User</button>
-</form>
-
-{% endblock %}
