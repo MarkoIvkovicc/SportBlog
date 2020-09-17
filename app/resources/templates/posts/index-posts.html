@@ -2,9 +2,7 @@
 
 {% block body_content %}
 
-{% block header_nav %}
-    {{ parent() }}
-{% endblock header_nav %}
+
 {% block header_title %}
 <div class="container max-w-4xl mx-auto pt-16 md:pt-5 text-center break-normal mt-20">
     <!--Title-->
@@ -19,28 +17,52 @@
 {% endblock header_title %}
 <div class="mt-20">
     {% for post in posts %}
-    <div class="p-5 flex justify-between">
-       
-        <div class="h-16 w-16 rounded-full overflow-hidden mr-4">
-			<img class="w-full h-full object-cover avatar" data-tippy-content="Author Name" src="https://source.unsplash.com/collection/10865343" alt="{{ post.user.name }}" tabindex="0">
-		 </div>
-        <div>
-            <a href="posts/{{ post.id }}" class=" flex justify-between">
-                <div class="text-4xl mr-auto">
-                    {{ post.title }}
+    <div class="p-5 justify-between hover:bg-gray-100 m-10 rounded-lg hover:shadow-lg">
+        <div class="py-5">
+            <div class=" py-5">
+                <div class="my-auto">
+                    {% if (admin) or (post.user.id == user.id) %}
+                        {% include "components/edit-post-button.html" %}
+                    {% endif %}
                 </div>
-            </a>
-        </div>
-        <div class="my-auto">
-            {% if (admin) or (post.user.id == user.id) %}
-                {% include "components/edit-post-button.html" %}
-            {% endif %}
-        </div>
-        
-           
-            <div class="text-sm my-auto">
-                {{ post.createdAt|date('d.m.Y H:i') }}
+                <div class="m-auto h-16 w-16 rounded-full overflow-hidden mb-3">
+                    <img class="w-full h-full object-cover avatar" data-tippy-content="{{ post.user.name }}" src="https://source.unsplash.com/collection/10865343" alt="{{ post.user.name }}" tabindex="0">
+                 </div>
+                 <div class="ml-3 mb-3 text-smal text-gray-500 italic m-auto">
+                     Author: <a class="hover:underline hover:text-gray-700" href="/users/{{ post.user.id }}">{{ post.user.name }}</a> 
+                 </div>
+                 <div class="my-auto text-sm text-gray-500 italic">
+                    {{ post.createdAt|date('d.m.Y H:i') }}
+                </div>
+                <a href="posts/{{ post.id }}" class="hover:underline">
+                    <div class="text-5xl mr-auto text-gray-700">
+                        {{ post.title }}
+                    </div>
+                </a>
             </div>
+        </div>
+        <div class="md:flex">
+            <a href="posts/{{ post.id }}" class="w-1/2 p-2">
+                {% if post.image %}
+                <div>
+                    <img class="w-full h-64 object-cover rounded-md" src="{{ post.image }}">
+                </div>
+                {% else %}
+                <div>
+                    <img class="w-full h-64 object-cover rounded-md" src="https://source.unsplash.com/collection/10865343">
+                </div>
+                {% endif %}
+            </a>
+            <div class="md:w-1/2 p-2 text-xl text-left flex-wrap content-between relative">
+                <div class="md:absolute top-0 mb-3">
+                   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste nihil consequatur repellendus voluptates necessitatibus eligendi at ea odit. Est praesentium hic odio consequatur ullam repudiandae!
+                </div>
+                <div class="md:absolute inset-x-0 bottom-0 text-right mr-2 mb-2">
+                    <a href="posts/{{ post.id }}"><button class="p-3 w-full md:w-40 bg-orange-400 hover:bg-orange-300 rounded-lg"> Read more ... </button></a>
+
+                </div>
+            </div>
+        </div>
         
     </div>
     {% endfor %}

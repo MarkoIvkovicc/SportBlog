@@ -19,27 +19,33 @@
 </head>
 <body class="font-sans leading-normal tracking-normal h-screen">
   {% block header_nav %}
-<div class="flex w-full pl-4 text-sm fixed transform" id="navigation" style="opacity: 0.8; padding: 20px; top:0; background-color: rgb(255,255,255);">
-  <div class="text-right text-gray-900 font-bold flex justify-between p-2 w-full "> 
-    <div class="flex justify-between">
-      <div class="my-auto"> <a class="mx-3 no-underline hover:underline nav-text" href="/">Home</a></div>
-      <div class="my-auto"> <a class="mx-3 no-underline hover:underline nav-text" href="/posts">Posts</a></div>
+<div class="md:flex w-full pl-4 text-sm fixed transform" id="navigation" style="opacity: 0.8; padding: 22px; top:0; background-color: rgb(255,255,255);">
+  <div class="md:hidden md:flex text-right">
+    <button class="ml-auto focus:outline-none" onclick="toggleNav()">
+      <img class="w-10 h-10" src="storage\pic\9851132801553239378.svg" alt="ham">
+    </button>
+  </div>
+  
+  <div class="hidden md:block text-right text-gray-900 font-bold md:flex justify-between p-2 w-full" id="responsiveNav"> 
+    <div class="md:flex justify-between">
+      <div class="my-auto mb-2 md:mb-0"> <a class="mx-3 no-underline hover:underline nav-text" href="/">Home</a></div>
+      <div class="my-auto mb-2 md:mb-0"> <a class="mx-3 no-underline hover:underline nav-text" href="/posts">Posts</a></div>
       {% if logged %}
-        <div class="my-auto"> <a class="mx-3 no-underline hover:underline nav-text" href="/posts/create">Create a new <u>Post</u></a></div>
+        <div class="my-auto mb-2 md:mb-0"> <a class="mx-3 no-underline hover:underline nav-text" href="/posts/create">Create a new <u>Post</u></a></div>
       {% endif %}
     </div>
-   <div class="flex justify-between"> 
+   <div class="md:flex justify-between"> 
     
     {% if logged %}
-     <div class="my-auto"> <a class="mx-3 no-underline hover:underline nav-text" href="/logout">Logout</a></div>
+     <div class="my-auto mb-2 md:mb-0"> <a class="mx-3 no-underline hover:underline nav-text" href="/logout">Logout</a></div>
       {% if admin %}
-      <div class="my-auto"><a class="mx-3 no-underline hover:underline nav-text" href="/dashboard">Dashboard</a></div>
+      <div class="my-auto mb-2 md:mb-0"><a class="mx-3 no-underline hover:underline nav-text" href="/dashboard">Dashboard</a></div>
       {% elseif not admin %}
-      <div class="my-auto"><a class="mx-3 no-underline hover:underline nav-text" href="/dashboard/posts">Dashboard</a></div>
+      <div class="my-auto mb-2 md:mb-0"><a class="mx-3 no-underline hover:underline nav-text" href="/dashboard/posts">Dashboard</a></div>
       {% endif %}
     {% else %}
-      <div class="my-auto"> <a class="no-underline hover:underline nav-text" href="/login">Login</a></div>
-      <div class="my-auto"><a class="mx-3 no-underline hover:underline nav-text" href="/register">Register</a></div>   
+      <div class="my-auto mb-2 md:mb-0"> <a class="mx-3 no-underline hover:underline nav-text" href="/login">Login</a></div>
+      <div class="my-auto mb-2 md:mb-0"><a class="mx-3 no-underline hover:underline nav-text" href="/register">Register</a></div>   
     {% endif %}
 
     <!-- social icons -->
@@ -65,11 +71,11 @@
 
  <!-- nav -->
   
-<div class="container max-w-4xl mx-auto pt-16 md:pt-32 mb-40 text-center break-normal">
+<div class="container max-w-4xl mx-auto pt-24 md:pt-32 mb-40 text-center break-normal">
   {% block header_title %}
     <!--Title-->
     
-    <p class="text-gray-100 font-extrabold text-3xl md:text-5xl">
+    <p class="text-gray-100 font-extrabold text-4xl md:text-3xl md:text-5xl">
       Sport Blog
     </p>
     <p class="text-xl md:text-2xl text-gray-500">
@@ -386,6 +392,20 @@
       
     }
   }
+   </script>
+   <script>
+     function toggleNav() {
+      
+      x = document.getElementById('responsiveNav');
+       if (x.classList.contains('hidden')) {
+        x.classList.remove('hidden');
+        x.classList.add('block');
+        } else if (x.classList.contains('block')) {
+          x.classList.remove('block');
+          x.classList.add('hidden');
+        }
+       }
+     
    </script>
 {% endblock footer_scripts %}
 

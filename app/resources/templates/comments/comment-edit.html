@@ -1,16 +1,44 @@
-{% block content %}
-    
-<form action="/updateComment/{{ comment.id }}" method="POST">
-	<input type="hidden" name="id" value="{{ comment.id }}">
-	<label>Body</label>
-	<textarea name="body">{{ comment.body }}</textarea>
-	<button type="submit">Update</button>
-</form>
+{% extends "homepage.html" %}
+{% block body_content %}
+{% block header_image %}
+<div class="w-full m-0 p-0 bg-cover bg-bottom mt-40">
+{% endblock header_image %}
 
-<form action="/deleteComment/{{ comment.id }}" method="POST">
-	<input type="hidden" name="method" value="DELETE">
-	<input type="hidden" name="id" value="{{ comment.id }}">
-	<button type="submit">Delete Comment</button>
-</form>
 
-{% endblock %}
+<div class="container max-w-4xl mx-auto pt-16 md:pt-5 text-center break-normal ">
+	<div class="mt-20 p-5">
+		<div class="border rounded-lg p-8 mb-8">
+			<div>
+				<div class="text-2xl mb-6">
+					Edit <a class="hover:underline text-gray-700" href="/users/{{comment.user.id}}">{{comment.user.name }}</a> comment
+				</div>
+			</div>
+			<form action="/updateComment/{{ comment.id }}" method="POST">
+				<input type="hidden" name="id" value="{{ comment.id }}">
+				<textarea class="p-3 border w-full rounded-lg" name="body" rows="10">{{ comment.body }}</textarea>
+				<button type="submit" class="text-white bg-blue-600 rounded py-2 px-2 m-3 w-1/4 hover:bg-blue-500 w-full">Save Comment</button>
+			</form>
+
+			<form action="/deleteComment/{{ comment.id }}" method="POST">
+				<input type="hidden" name="method" value="DELETE">
+				<input type="hidden" name="id" value="{{ comment.id }}">
+				<button type="submit" class="text-white bg-red-600 rounded py-2 px-2 m-3 w-1/4 hover:bg-red-500 w-full">Delete Comment</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% block footer_scripts %}
+{% include "components/edit-post-button-functions.html" %}
+	{{ parent() }}
+{% endblock footer_scripts %}
+	
+{% endblock body_content %}
+	
+
+
+
+
+
+
+

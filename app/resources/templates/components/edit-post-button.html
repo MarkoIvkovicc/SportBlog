@@ -1,6 +1,6 @@
 <div class="relative">
     <button class="ml-auto block focus:outline-none hover:underline" onClick="getId('edit-menu-{{post.id}}')">Edit Post</button>
-    <div id="edit-menu-{{post.id}}" class="border rounded-lg p-4 absolute right-0 shadow-lg bg-gray-400 z-10" style="display: none;">
+    <div id="edit-menu-{{post.id}}" class="border rounded-lg p-4 absolute right-0 shadow-lg bg-gray-300 z-10" style="display: none;">
         <div>
             <form action="/editPost/{{ post.id }}">
                 <div class="w-full flex">

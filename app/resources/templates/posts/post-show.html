@@ -16,7 +16,7 @@
 	<!-- end of edit button -->
 
 
-     <div class="text-xl md:text-6xl text-gray-700">
+     <div class="text-xl text-2xl md:text-6xl text-gray-700">
 		 <div class="">
 			<div class="mb-20">
 				{{ post.title }}
@@ -30,8 +30,6 @@
 					<a href="/users/{{ post.user.id }}">{{ post.user.name }}</a>
 				 </div>
 			</div>
-			
-			
 		 </div>
 		 <hr class="mt-10">
      </div>
@@ -39,15 +37,20 @@
  {% endblock header_title %}
  <div class="mt-20 p-5">
 
-{% autoescape %}
+
 <div class="text-lg">
-	{{ post.body|raw }}
+		<img class="h-full w-full object-cover rounded-md mb-10" src="/{{ post.image }}" alt="Image in post">
+	<div>
+		{% autoescape %}
+		{{ post.body|raw }}
+		{% endautoescape %}
+	</div>
 </div>
 
-{% endautoescape %}
+
 </div>
 
-<img src="/{{ post.image }}" alt="Image in post" width="150" height="120">
+
 
 
 {% for comment in comments %}
