@@ -27,7 +27,7 @@ class PostsController
       $user = new UserModel;        
       $user->isAdmin() ? $admin = true : $admin = false;
 
-      echo twig()->render('posts/post-create.html', compact('admin'));  
+      echo twig()->render('posts/post-create.html', compact('admin', 'user'));  
     }
 
     public function store () {

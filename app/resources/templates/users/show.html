@@ -22,19 +22,21 @@
 			<div class="mb-20">
 				{{ user.name }}
 			 </div>
-			 <div class="text-sm text-left flex">
+			 <div class="text-sm text-left flex justify-between mb-10">
 				 <div class="h-16 w-16 rounded-full overflow-hidden mr-4">
-				 	<img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ user.name }}" src="/{{ user.image }}" alt="Avatar of Author">
+					 <img class="w-full h-full object-cover avatar" data-tippy-content="{{ user.name }}" src="/{{ user.image }}" alt="{{ user.name }}" tabindex="0">
+				 </div>
+				 <div class="h-full text-lg my-auto">
+					 <div>
+						{{ user.email }}
+					 </div>
 				 </div>
 			</div>
-
 			 {% for post in posts %}
-				 <a href="/posts/{{post.id}}">{{ post.title }}</a>
+			 <div class="text-left text-4xl">
+				<a class="hover:underline" href="/posts/{{post.id}}">{{ post.title }}</a>
+			 </div> 
 			 {% endfor %}
-			 <div class="mt-auto">
-				{{ user.email }}
-			 </div>
-			
 		 </div>
 		 <hr class="mt-10">
      </div>

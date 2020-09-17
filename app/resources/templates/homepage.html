@@ -19,24 +19,33 @@
 </head>
 <body class="font-sans leading-normal tracking-normal h-screen">
   {% block header_nav %}
-<div class="flex w-full pl-4 text-sm fixed transform" id="navigation" style="opacity: 0.8; padding: 20px; top:0; background-color: rgb(255,255,255);">
-  <div class="text-right text-gray-900 font-bold flex justify-between p-2 w-full "> 
-    <div class="flex justify-between">
-      <div class="my-auto"> <a class="mx-3 no-underline hover:underline nav-text" href="/">Home</a></div>
-      <div class="my-auto"> <a class="mx-3 no-underline hover:underline nav-text" href="/posts">Posts</a></div>
+<div class="md:flex w-full pl-4 text-sm fixed transform" id="navigation" style="opacity: 0.8; padding: 22px; top:0; background-color: rgb(255,255,255);">
+  <div class="md:hidden md:flex text-right">
+    <button class="ml-auto focus:outline-none" onclick="toggleNav()">
+      <img class="w-10 h-10" src="/storage/pic/9851132801553239378.svg" alt="ham">
+    </button>
+  </div>
+  
+  <div class="hidden md:block text-right text-gray-900 font-bold md:flex justify-between p-2 w-full" id="responsiveNav"> 
+    <div class="md:flex justify-between">
+      <div class="my-auto mb-2 md:mb-0"> <a class="mx-3 no-underline hover:underline nav-text" href="/">Home</a></div>
+      <div class="my-auto mb-2 md:mb-0"> <a class="mx-3 no-underline hover:underline nav-text" href="/posts">Posts</a></div>
+      {% if logged %}
+        <div class="my-auto mb-2 md:mb-0"> <a class="mx-3 no-underline hover:underline nav-text" href="/posts/create">Create a new <u>Post</u></a></div>
+      {% endif %}
     </div>
-   <div class="flex justify-between"> 
+   <div class="md:flex justify-between"> 
     
     {% if logged %}
-     <div class="my-auto"> <a class="mx-3 no-underline hover:underline nav-text" href="/logout">Logout</a></div>
+     <div class="my-auto mb-2 md:mb-0"> <a class="mx-3 no-underline hover:underline nav-text" href="/logout">Logout</a></div>
       {% if admin %}
-      <div class="my-auto"><a class="mx-3 no-underline hover:underline nav-text" href="/dashboard">Dashboard</a></div>
+      <div class="my-auto mb-2 md:mb-0"><a class="mx-3 no-underline hover:underline nav-text" href="/dashboard">Dashboard</a></div>
       {% elseif not admin %}
-      <div class="my-auto"><a class="mx-3 no-underline hover:underline nav-text" href="/dashboard/posts">Dashboard</a></div>
+      <div class="my-auto mb-2 md:mb-0"><a class="mx-3 no-underline hover:underline nav-text" href="/dashboard/posts">Dashboard</a></div>
       {% endif %}
     {% else %}
-      <div class="my-auto"> <a class="no-underline hover:underline nav-text" href="/login">Login</a></div>
-      <div class="my-auto"><a class="mx-3 no-underline hover:underline nav-text" href="/register">Register</a></div>   
+      <div class="my-auto mb-2 md:mb-0"> <a class="mx-3 no-underline hover:underline nav-text" href="/login">Login</a></div>
+      <div class="my-auto mb-2 md:mb-0"><a class="mx-3 no-underline hover:underline nav-text" href="/register">Register</a></div>   
     {% endif %}
 
     <!-- social icons -->
@@ -62,11 +71,11 @@
 
  <!-- nav -->
   
-<div class="container max-w-4xl mx-auto pt-16 md:pt-32 mb-40 text-center break-normal">
+<div class="container max-w-4xl mx-auto pt-24 md:pt-32 mb-40 text-center break-normal">
   {% block header_title %}
     <!--Title-->
     
-    <p class="text-gray-100 font-extrabold text-3xl md:text-5xl">
+    <p class="text-gray-100 font-extrabold text-4xl md:text-3xl md:text-5xl">
       Sport Blog
     </p>
     <p class="text-xl md:text-2xl text-gray-500">
@@ -87,25 +96,24 @@
 
     <div class="bg-gray-200 w-full text-xl md:text-2xl text-gray-800 leading-normal rounded-lg">
      <!--Lead Card-->
+      
     <div class="flex h-full bg-white overflow-hidden shadow-lg rounded-lg">
-    <a href="post.html" class="flex flex-wrap no-underline hover:no-underline">
+    <a href="/posts/{{ lastPost.id}}" class="flex flex-wrap no-underline hover:no-underline">
     <div class="w-full md:w-2/3 rounded-b">	
-      <img src="https://source.unsplash.com/collection/190727/1600x900" class="h-full w-full shadow">
+      <img src="{{ lastPost.image }}" class="h-full w-full shadow">
     </div>
     <div class="w-full md:w-1/3 flex flex-col flex-grow flex-shrink">
       <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
-        
-        <div class="w-full font-bold text-xl text-gray-900 px-6 mb-5 mt-5">{{ posts['title']}}</div>
-        <p class="text-gray-800 font-serif text-base px-6 mb-5">
-           
-          Teaser Post body .... Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente corrupti obcaecati aliquam eaque possimus qui soluta harum natus dolor, necessitatibus aut exercitationem fuga labore fugit blanditiis accusantium suscipit sunt non.
-        </p>
+        {% autoescape %}
+        <div class="w-full font-bold text-xl text-gray-900 px-6 mb-5 mt-5">{{ lastPost.title|raw }}</div>
+        <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ lastPost.body|raw }}</p>
+        {% endautoescape %}
       </div>
 
       <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
         <div class="flex items-center justify-between">
-          <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="Author Name" src="http://i.pravatar.cc/300" alt="Avatar of Author">
-          <p class=" text-gray-600 text-xs md:text-sm px-6"> CREATED AT</p>
+          <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ lastPost.user.name }}" src="{{ lastPost.user.image }}" alt="Avatar of Author">
+          <p class=" text-gray-600 text-xs md:text-sm px-6"> CREATED AT {{ lastPost.create_at|date('d.m.Y H:i') }}</p>
           <p class="text-gray-600 text-xs">1 MIN READ</p>
         </div>
       </div>
@@ -120,108 +128,53 @@
     <!--Posts Container-->
     <div class="flex flex-wrap justify-between pt-12 -mx-6">
 
-      <!--1/3 col -->
-      <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
-          <a href="#" class="flex flex-wrap no-underline hover:no-underline">
-            <img src="https://source.unsplash.com/collection/225/800x600" class="h-64 w-full rounded-t pb-6">
-            
-            <div class="w-full font-bold text-xl text-gray-900 px-6">Lorem ipsum dolor sit amet.</div>
-            <p class="text-gray-800 font-serif text-base px-6 mb-5">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit amet ligula. 
-            </p>
-          </a>
-        </div>
-        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
-          <div class="flex items-center justify-between">
-            <div class="w-1/4">
-              <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="Author Name" src="http://i.pravatar.cc/300" alt="Avatar of Author" tabindex="0">
+      {% for post in last3Posts %}
+        <!--1/3 col -->
+        <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+          <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+            <a href="/posts/{{ post.id }}" class="flex flex-wrap no-underline hover:no-underline">
+              <img src="{{ post.image }}" class="h-64 w-full rounded-t pb-6">
+              {% autoescape %}
+              <div class="w-full font-bold text-xl text-gray-900 px-6">{{ post.title|raw }}</div>
+              <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ post.body|raw }}</p>
+              {% endautoescape %}
+            </a>
+          </div>
+          <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+            <div class="flex items-center justify-between">
+              <div class="w-1/4">
+                <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ post.user.name }}" src="{{ post.user.image }}" alt="Avatar of Author" tabindex="0">
+              </div>
+            <div class="w-2/4">
+              <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT {{ post.create_at|date('d.m.Y H:i') }}</p>
             </div>
-          <div class="w-2/4">
-            <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT</p>
-          </div>
-          <div class="w-1/4">
-            <p class="text-gray-600 text-xs md:w-full text-right">1 MIN READ</p>
-          </div>
-      </div>
-        </div>
-      </div>
-    
-      
-      <!--1/3 col -->
-      <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
-          <a href="#" class="flex flex-wrap no-underline hover:no-underline">
-            <img src="https://source.unsplash.com/collection/3106804/800x600" class="h-64 w-full rounded-t pb-6">
-            
-            <div class="w-full font-bold text-xl text-gray-900 px-6">Lorem ipsum dolor sit amet.</div>
-            <p class="text-gray-800 font-serif text-base px-6 mb-5">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ip Aliquam at ipsum eu nunc commodo posuere et sit amet ligula. 
-            </p>
-          </a>
-          </div>
-        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
-          <div class="flex items-center justify-between">
             <div class="w-1/4">
-              <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="Author Name" src="http://i.pravatar.cc/300" alt="Avatar of Author" tabindex="0">
+              <p class="text-gray-600 text-xs md:w-full text-right">1 MIN READ</p>
             </div>
-          <div class="w-2/4">
-            <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT</p>
-          </div>
-          <div class="w-1/4">
-            <p class="text-gray-600 text-xs md:w-full text-right">1 MIN READ</p>
-          </div>
-      </div>
         </div>
-      </div>
-
-      <!--1/3 col -->
-      <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
-          <a href="#" class="flex flex-wrap no-underline hover:no-underline">
-            <img src="https://source.unsplash.com/collection/539527/800x600" class="h-64 w-full rounded-t pb-6">
-            
-            <div class="w-full  font-bold text-xl text-gray-900 px-6">Lorem ipsum dolor sit amet.</div>
-            <p class="text-gray-800 font-serif text-base px-6 mb-5">
-              Lorem ipsum eu nunc commodo posuere et sit amet ligula. 
-            </p>
-          </a>
-        </div>
-        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
-          <div class="flex items-center justify-between">
-            <div class="w-1/4">
-              <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="Author Name" src="http://i.pravatar.cc/300" alt="Avatar of Author" tabindex="0">
-            </div>
-          <div class="w-2/4">
-            <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT</p>
           </div>
-          <div class="w-1/4">
-            <p class="text-gray-600 text-xs md:w-full text-right">1 MIN READ</p>
-          </div>
-      </div>
         </div>
-      </div>
+      {% endfor %}
 
-
+      {% for post in pastMonthFirst2 %}
       <!--1/2 col -->
       <div class="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
         <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
-          <a href="#" class="flex flex-wrap no-underline hover:no-underline">
-            <img src="https://source.unsplash.com/collection/3657445/800x600" class="h-full w-full rounded-t pb-6">
-            
-            <div class="w-full font-bold text-xl text-gray-900 px-6">Lorem ipsum dolor sit amet.</div>
-            <p class="text-gray-800 font-serif text-base px-6 mb-5">
-              Lorem ipsum eu nunc commodo posuere et sit amet ligula. 
-            </p>
+          <a href="/posts/{{ post.id }}" class="flex flex-wrap no-underline hover:no-underline">
+            <img src="{{ post.image }}" class="h-full w-full rounded-t pb-6">
+            {% autoescape %}
+            <div class="w-full font-bold text-xl text-gray-900 px-6">{{ post.title|raw }}</div>
+            <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ post.body|raw }}</p>
+            {% endautoescape %}
           </a>
         </div>
         <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
           <div class="flex items-center justify-between">
             <div class="w-1/4">
-              <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="Author Name" src="http://i.pravatar.cc/300" alt="Avatar of Author" tabindex="0">
+              <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ post.user.name }}" src="{{ post.user.image}}" alt="Avatar of Author" tabindex="0">
             </div>
           <div class="w-2/4">
-            <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT</p>
+            <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT {{ post.create_at|date('d.m.Y H:i') }}</p>
           </div>
           <div class="w-1/4">
             <p class="text-gray-600 text-xs md:w-full text-right">1 MIN READ</p>
@@ -229,55 +182,26 @@
       </div>
         </div>
       </div>
-
-      <!--1/2 col -->
-      <div class="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
-        <div class="flex-1 flex-row bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
-          <a href="#" class="flex flex-wrap no-underline hover:no-underline">	
-            <img src="https://source.unsplash.com/collection/764827/800x600" class="h-full w-full rounded-t pb-6">
-            
-            <div class="w-full font-bold text-xl text-gray-900 px-6">Lorem ipsum dolor sit amet.</div>
-            <p class="text-gray-800 font-serif text-base px-6 mb-5">
-              Lorem ipsum eu nunc commodo posuere et sit amet ligula. 
-            </p>
-          </a>
-        </div>
-        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
-          <div class="flex items-center justify-between">
-            <div class="w-1/4">
-              <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="Author Name" src="http://i.pravatar.cc/300" alt="Avatar of Author" tabindex="0">
-            </div>
-          <div class="w-2/4">
-            <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT</p>
-          </div>
-          <div class="w-1/4">
-            <p class="text-gray-600 text-xs md:w-full text-right">1 MIN READ</p>
-          </div>
-      </div>
-        </div>
-      </div>
-
-
+      {% endfor %}
 
       <!--2/3 col -->
       <div class="w-full md:w-2/3 p-6 flex flex-col flex-grow flex-shrink">
         <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
-          <a href="#" class="flex flex-wrap no-underline hover:no-underline">	
-            <img src="https://source.unsplash.com/collection/325867/800x600" class="h-full w-full rounded-t pb-6">
-            
-            <div class="w-full font-bold text-xl text-gray-900 px-6">Lorem ipsum dolor sit amet.</div>
-            <p class="text-gray-800 font-serif text-base px-6 mb-5">
-              Lorem ipsum eu nunc commodo posuere et sit amet ligula. 
-            </p>
+          <a href="/posts/{{ pastMonthLast2[0].id }}" class="flex flex-wrap no-underline hover:no-underline">	
+            <img src="{{ pastMonthLast2[0].image }}" class="h-full w-full rounded-t pb-6">
+            {% autoescape %}
+            <div class="w-full font-bold text-xl text-gray-900 px-6">{{ pastMonthLast2[0].title|raw }}</div>
+            <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ pastMonthLast2[0].body|raw }}</p>
+            {% endautoescape %}
           </a>
         </div>
         <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
           <div class="flex items-center justify-between">
             <div class="w-1/4">
-              <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="Author Name" src="http://i.pravatar.cc/300" alt="Avatar of Author" tabindex="0">
+              <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ pastMonthLast2[0].user.name }}" src="pastMonthLast2[0].user.id" alt="Avatar of Author" tabindex="0">
             </div>
           <div class="w-2/4">
-            <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT</p>
+            <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT {{ pastMonthLast2[0].create_at|date('d.m.Y H:i') }}</p>
           </div>
           <div class="w-1/4">
             <p class="text-gray-600 text-xs md:w-full text-right">1 MIN READ</p>
@@ -289,22 +213,21 @@
       <!--1/3 col -->
       <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
         <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
-          <a href="#" class="flex flex-wrap no-underline hover:no-underline">
-            <img src="https://source.unsplash.com/collection/1118905/800x600" class="h-full w-full rounded-t pb-6">
-           
-            <div class="w-full font-bold text-xl text-gray-900 px-6">Lorem ipsum dolor sit amet.</div>
-            <p class="text-gray-800 font-serif text-base px-6 mb-5">
-              Lorem ipsum eu nunc commodo posuere et sit amet ligula. 
-            </p>
+          <a href="/posts/{{ pastMonthLast2[1].id }}" class="flex flex-wrap no-underline hover:no-underline">
+            <img src="{{ pastMonthLast2[1].image }}" class="h-full w-full rounded-t pb-6">
+            {% autoescape %}
+            <div class="w-full font-bold text-xl text-gray-900 px-6">{{ pastMonthLast2[1].title|raw }}</div>
+            <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ pastMonthLast2[1].body|raw }}</p>
+            {% endautoescape %}
           </a>
         </div>
         <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
             <div class="flex items-center justify-between">
                 <div class="w-1/4">
-                  <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="Author Name" src="http://i.pravatar.cc/300" alt="Avatar of Author" tabindex="0">
+                  <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ pastMonthLast2[1].user.name }}" src="{{ pastMonthLast2[1].user.id }}" alt="Avatar of Author" tabindex="0">
                 </div>
               <div class="w-2/4">
-                <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT</p>
+                <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT {{ pastMonthLast2[1].create_at|date('d.m.Y H:i') }}</p>
               </div>
               <div class="w-1/4">
                 <p class="text-gray-600 text-xs md:w-full text-right">1 MIN READ</p>
@@ -384,6 +307,20 @@
       
     }
   }
+   </script>
+   <script>
+     function toggleNav() {
+      
+      x = document.getElementById('responsiveNav');
+       if (x.classList.contains('hidden')) {
+        x.classList.remove('hidden');
+        x.classList.add('block');
+        } else if (x.classList.contains('block')) {
+          x.classList.remove('block');
+          x.classList.add('hidden');
+        }
+       }
+     
    </script>
 {% endblock footer_scripts %}
 
