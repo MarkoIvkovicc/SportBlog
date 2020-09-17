@@ -110,14 +110,16 @@ class UsersController {
     public function edit($id)
     {
       $em = em();
-
       $user = $em->find(User::class, $id);
+      $userModel = new UserModel;
 
       if (! $user) {
         echo twig()->render('http-codes/404.html');
         exit();
       }
 
-      echo twig()->render('users/edit.html', compact('user'));
+      $userModel->isAdmin() ? $admin = true : $admin = false;
+
+      echo twig()->render('users/edit.html', compact('user', 'admin'));
     }
 }

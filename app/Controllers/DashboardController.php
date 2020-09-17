@@ -14,7 +14,7 @@ class DashboardController {
         if ($user->isAdmin()) {
             $posts = em()->getRepository(Post::class)->findAll();
         } elseif ($user->isUser()) {
-            $posts = em()->getRepository(Post::class)->findBy(array('user' => $user));
+            $posts = em()->getRepository(Post::class)->findBy(array('user' => $user->getId()));
         }
 
         $user->isAdmin() ? $admin = true : $admin = false;
