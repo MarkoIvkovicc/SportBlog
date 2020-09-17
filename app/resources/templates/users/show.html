@@ -24,10 +24,8 @@
 			 </div>
 			 <div class="text-sm text-left flex">
 				 <div class="h-16 w-16 rounded-full overflow-hidden mr-4">
-				 	<img src="/{{ user.image }}" alt="User's profil picture" width="150" height="120">
-					<img class="w-full h-full object-cover avatar" data-tippy-content="Author Name" src="https://source.unsplash.com/collection/10865343" alt="{{ user.name }}" tabindex="0">
+				 	<img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ user.name }}" src="/{{ user.image }}" alt="Avatar of Author">
 				 </div>
-				 
 			</div>
 
 			 {% for post in posts %}

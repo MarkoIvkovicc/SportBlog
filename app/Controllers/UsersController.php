@@ -68,8 +68,8 @@ class UsersController {
     public function update($id)
     {
       $em = em();
-
       $user = $em->find(User::class, $id); 
+      $storage = new StorageController;
 
       $user->setName(request()->get('username'))
         ->setEmail(request()->get('email'));
@@ -83,6 +83,12 @@ class UsersController {
       }
 
       request()->get('role') ? $user->setRole(request()->get('role')) : '';
+
+      if ($user->getImage() != null) {
+        $storage->deleteImage($user->getImage());
+      }
+      
+      $user->setImage($storage->getImage('user', $id));
 
       $em->merge($user);
       $em->flush();

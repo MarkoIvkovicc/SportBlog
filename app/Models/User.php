@@ -19,10 +19,13 @@ class User
         $authentication = new Authentication;
         $user = $authentication->getUser();
 
-        $this->id = $user['id']->getValue();
-        $this->name = $user['name']->getValue();
-        $this->email = $user['email']->getValue();
-        $this->role = $user['role']->getValue();
+        if (isset($user)) {
+            $this->id = $user['id']->getValue();
+            $this->name = $user['name']->getValue();
+            $this->email = $user['email']->getValue();
+            $this->role = $user['role']->getValue();            
+        }
+
     }
 
     public function isAdmin()

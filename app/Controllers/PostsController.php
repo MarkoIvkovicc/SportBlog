@@ -45,11 +45,13 @@ class PostsController
       if ($post->getImage() != null) {
         $storage->deleteImage($post->getImage());
       }
-      
-      $subDir = "post";
-      $post->setImage($storage->getImage($subDir));
 
       $em->persist($post);
+      $em->flush();
+
+      $post->setImage($storage->getImage('post', $post->getId()));
+
+      $em->merge($post);
       $em->flush();
 
       return header("Location: /posts/" . $post->getId());
@@ -86,8 +88,7 @@ class PostsController
         $storage->deleteImage($post->getImage());
       }
       
-      $subDir = "post";
-      $post->setImage($storage->getImage($subDir));
+      $post->setImage($storage->getImage('post', $id));
 
       $em->merge($post);
       $em->flush();

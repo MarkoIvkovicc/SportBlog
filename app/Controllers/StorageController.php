@@ -4,12 +4,13 @@ namespace App\Controllers;
 
 class StorageController
 {
-	public function uploadImage($subPath)
+	public function uploadImage($prefix, $id)
 	{
-		$targetDir = "storage/images/" . $subPath . "/";
-		$targetFile = $targetDir . basename($_FILES["image"]["name"]);
+		$fileName = $this->generateRandomString();
+		$targetDir = "storage/images/" . $prefix . "/";
+		$targetFile = $targetDir . $id . '_' . $fileName;
 		$uploadOk = 1;
-		$imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+		$imageFileType = strtolower(pathinfo(basename($_FILES["image"]["name"]), PATHINFO_EXTENSION));
 
 		// Check if file already exists
 		if (file_exists($targetFile)) {
@@ -29,10 +30,12 @@ class StorageController
 			$uploadOk = 0;
 			echo twig()->render('http-codes/413.html'); return;
 		}
+
 		// Allow certain file formats
 		if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
 			$uploadOk = 0;
 		}
+
 		if ($uploadOk == 0) {
 			echo twig()->render('http-codes/400.html');  
 			return;
@@ -49,15 +52,25 @@ class StorageController
 		}
 	}
 
-	public function getImage($subPath)
+	public function getImage($prefix, $userId)
 	{
-		return $this->uploadImage($subPath);
+		return $this->uploadImage($prefix, $userId);
 	}
 
 	public function deleteImage ($image)
 	{
-		if (is_dir($image)) {
+		if (file_exists($image)) {
 			unlink($image);
 		}
+	}
+
+	private function generateRandomString($length = 15) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
 	}
 }
