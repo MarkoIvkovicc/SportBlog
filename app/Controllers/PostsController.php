@@ -19,7 +19,7 @@ class PostsController
 	    	isset($user) ? $logged = true : $logged = false;
     	}
     
-      $posts = em()->getRepository(Post::class)->findAll();
+      $posts = em()->getRepository(Post::class)->findBy(array(),array('id'=>'DESC'));
       echo twig()->render('posts/index-posts.html', compact('posts', 'admin', 'logged', 'user'));
   }
 
@@ -35,15 +35,17 @@ class PostsController
       $post = new Post;
       $UserModel = new UserModel;
       $userEM = $em->find(UserEM::class, $UserModel->getId());
-      $storage = new StorageController();
       
       $post->setTitle(request()->get('title'));
       $post->setBody(request()->get('body'));
       $post->setUser($userEM);
       $post->setCreatedAt(new \DateTime);
 
-      if ($post->getImage() != null) {
-        $storage->deleteImage($post->getImage());
+      if ($_FILES["image"]["name"] != '') {
+        $storage = new StorageController();
+        if ($post->getImage() != null) {
+          $storage->deleteImage($post->getImage());
+        }
       }
 
       $em->persist($post);
@@ -84,11 +86,13 @@ class PostsController
 
       $storage = new StorageController();
 
-      if ($post->getImage() != null) {
-        $storage->deleteImage($post->getImage());
+      if ($_FILES["image"]["name"] != '') {
+        if ($post->getImage() != null) {
+          $storage->deleteImage($post->getImage());
+        }
+        
+        $post->setImage($storage->getImage('post', $id));
       }
-      
-      $post->setImage($storage->getImage('post', $id));
 
       $em->merge($post);
       $em->flush();
