@@ -35,6 +35,10 @@ class HomepageController {
 	    	isset($user) ? $logged = true : $logged = false;
     	}
 
+        // die(var_dump($lastPost));
+
+        // wordwrap($text, 8, "\n", false);
+
         echo twig()->render('homepage.html', compact('admin', 'logged', 'lastPost', 'last3Posts', 'pastMonthFirst2', 'pastMonthLast2')); 
     }
 } 

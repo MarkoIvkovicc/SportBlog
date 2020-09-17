@@ -106,13 +106,17 @@
       <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
         {% autoescape %}
         <div class="w-full font-bold text-xl text-gray-900 px-6 mb-5 mt-5">{{ lastPost.title|raw }}</div>
-        <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ lastPost.body|raw }}</p>
+        <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ lastPost.body|length > 500 ? lastPost.body|striptags|slice(0, 500) ~ '...' : lastPost.body|raw  }}</p>
         {% endautoescape %}
       </div>
 
       <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
         <div class="flex items-center justify-between">
-          <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ lastPost.user.name }}" src="{{ lastPost.user.image }}" alt="Avatar of Author">
+          {% if lastPost.user.image %}
+           <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ lastPost.user.name }}" src="/{{ lastPost.user.image }}" alt="{{ lastPost.user.name }}" tabindex="0">
+          {% else %}
+           <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ lastPost.user.name }}" src="https://source.unsplash.com/collection/10865343" alt="{{ lastPost.user.name }}" tabindex="0">
+          {% endif %}
           <p class=" text-gray-600 text-xs md:text-sm px-6"> CREATED AT {{ lastPost.create_at|date('d.m.Y H:i') }}</p>
           <p class="text-gray-600 text-xs">1 MIN READ</p>
         </div>
@@ -136,14 +140,18 @@
               <img src="{{ post.image }}" class="h-64 w-full rounded-t pb-6">
               {% autoescape %}
               <div class="w-full font-bold text-xl text-gray-900 px-6">{{ post.title|raw }}</div>
-              <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ post.body|raw }}</p>
+              <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ post.body|length > 300 ? post.body|striptags|slice(0, 300) ~ '...' : post.body|raw  }}</p>
               {% endautoescape %}
             </a>
           </div>
           <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
             <div class="flex items-center justify-between">
               <div class="w-1/4">
-                <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ post.user.name }}" src="{{ post.user.image }}" alt="Avatar of Author" tabindex="0">
+                {% if post.user.image %}
+                 <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ post.user.name }}" src="/{{ post.user.image }}" alt="{{ post.user.name }}" tabindex="0">
+                {% else %}
+                 <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ post.user.name }}" src="https://source.unsplash.com/collection/10865343" alt="{{ post.user.name }}" tabindex="0">
+                {% endif %}
               </div>
             <div class="w-2/4">
               <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT {{ post.create_at|date('d.m.Y H:i') }}</p>
@@ -164,14 +172,18 @@
             <img src="{{ post.image }}" class="h-full w-full rounded-t pb-6">
             {% autoescape %}
             <div class="w-full font-bold text-xl text-gray-900 px-6">{{ post.title|raw }}</div>
-            <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ post.body|raw }}</p>
+            <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ post.body|length > 300 ? post.body|striptags|slice(0, 300) ~ '...' : post.body|raw  }}</p>
             {% endautoescape %}
           </a>
         </div>
         <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
           <div class="flex items-center justify-between">
             <div class="w-1/4">
-              <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ post.user.name }}" src="{{ post.user.image}}" alt="Avatar of Author" tabindex="0">
+              {% if post.user.image %}
+               <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ post.user.name }}" src="/{{ post.user.image }}" alt="{{ post.user.name }}" tabindex="0">
+              {% else %}
+               <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ post.user.name }}" src="https://source.unsplash.com/collection/10865343" alt="{{ post.user.name }}" tabindex="0">
+              {% endif %}
             </div>
           <div class="w-2/4">
             <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT {{ post.create_at|date('d.m.Y H:i') }}</p>
@@ -191,14 +203,18 @@
             <img src="{{ pastMonthLast2[0].image }}" class="h-full w-full rounded-t pb-6">
             {% autoescape %}
             <div class="w-full font-bold text-xl text-gray-900 px-6">{{ pastMonthLast2[0].title|raw }}</div>
-            <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ pastMonthLast2[0].body|raw }}</p>
+            <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ pastMonthLast2[0].body|length > 300 ? pastMonthLast2[0].body|striptags|slice(0, 300) ~ '...' : pastMonthLast2[0].body|raw  }}</p>
             {% endautoescape %}
           </a>
         </div>
         <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
           <div class="flex items-center justify-between">
             <div class="w-1/4">
-              <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ pastMonthLast2[0].user.name }}" src="pastMonthLast2[0].user.id" alt="Avatar of Author" tabindex="0">
+              {% if pastMonthLast2[0].user.image %}
+               <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ pastMonthLast2[0].user.name }}" src="/{{ pastMonthLast2[0].user.image }}" alt="{{ pastMonthLast2[0].user.name }}" tabindex="0">
+              {% else %}
+               <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ pastMonthLast2[0].user.name }}" src="https://source.unsplash.com/collection/10865343" alt="{{ pastMonthLast2[0].user.name }}" tabindex="0">
+              {% endif %}
             </div>
           <div class="w-2/4">
             <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT {{ pastMonthLast2[0].create_at|date('d.m.Y H:i') }}</p>
@@ -217,14 +233,18 @@
             <img src="{{ pastMonthLast2[1].image }}" class="h-full w-full rounded-t pb-6">
             {% autoescape %}
             <div class="w-full font-bold text-xl text-gray-900 px-6">{{ pastMonthLast2[1].title|raw }}</div>
-            <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ pastMonthLast2[1].body|raw }}</p>
+            <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ pastMonthLast2[1].body|length > 300 ? pastMonthLast2[1].body|striptags|slice(0, 300) ~ '...' : pastMonthLast2[1].body|raw  }}</p>
             {% endautoescape %}
           </a>
         </div>
         <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
             <div class="flex items-center justify-between">
                 <div class="w-1/4">
-                  <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ pastMonthLast2[1].user.name }}" src="{{ pastMonthLast2[1].user.id }}" alt="Avatar of Author" tabindex="0">
+                  {% if pastMonthLast2[1].user.image %}
+                   <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ pastMonthLast2[1].user.name }}" src="/{{ pastMonthLast2[1].user.image }}" alt="{{ pastMonthLast2[1].user.name }}" tabindex="0">
+                  {% else %}
+                   <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ pastMonthLast2[1].user.name }}" src="https://source.unsplash.com/collection/10865343" alt="{{ pastMonthLast2[1].user.name }}" tabindex="0">
+                  {% endif %}
                 </div>
               <div class="w-2/4">
                 <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT {{ pastMonthLast2[1].create_at|date('d.m.Y H:i') }}</p>
