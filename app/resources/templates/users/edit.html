@@ -46,6 +46,8 @@
                     <input class="w-full p-3 mb-5 border" type="password" name="new-password">
                 </div>
             </div>
+
+            {% if admin %}
             <div>
                 <select name="role" required>
                     <option disabled selected>Please Select Role</option>
@@ -58,6 +60,7 @@
                 <label>Image</label>
                 <input type="file" name="image">
             </div>
+            {% endif %}
         </div> 
         <div class="w-full flex">
             <button type="submit" class="text-white bg-green-600 rounded p-3 m-3 w-1/4 hover:bg-green-500 w-full" name="submit">Update User</button>

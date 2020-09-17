@@ -14,6 +14,13 @@
                       <div class="text-center text-3xl font-base text-black">
                          Please Login
                       </div>
+                      
+                      {% if fail %}
+                        <div style="border: 1px solid red; border-radius: 5px">
+                          <span class="px-3 text-red-600">Wrong Credentials!</span>
+                        </div>
+                      {% endif %}
+                      
                       <form class="mt-8" action="/login" method="POST">
                           <div class="mx-auto max-w-lg ">
                               <div class="py-1">

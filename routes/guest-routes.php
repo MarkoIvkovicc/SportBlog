@@ -5,6 +5,7 @@ $router->get('/', '\App\Controllers\HomepageController@index');
 
 // Auth
 $router->get('/login', '\App\Controllers\AuthController@loginForm');
+$router->get('/failLogin', '\App\Controllers\AuthController@failLoginForm');
 $router->post('/login', '\App\Controllers\AuthController@login');
 $router->get('/logout', '\App\Controllers\AuthController@logout');
 $router->get('/register', '\App\Controllers\AuthController@registerForm');

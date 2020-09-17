@@ -16,6 +16,14 @@ class AuthController
 		echo twig()->render('auth/loginForm.html');
 	}
 
+    public function failLoginForm()
+    {
+        session_start();
+        isset($_SESSION['token']) ? header('Location: /') : '';
+        $fail = true;
+        echo twig()->render('auth/loginForm.html', compact('fail'));
+    }
+
 	public function login()
     {
     	$credentials = [
@@ -63,10 +71,9 @@ class AuthController
 
         $user = $query->getOneOrNullResult();
 
-        if(!$user || !password_verify($credentials['password'], $user->getPassword()))
+        if(!isset($user) || password_verify($credentials['password'], $user->getPassword()) != true)
         {
-            header('location:/login');
-            //TO DO: return twig for wrong credentials
+            return header('Location: /failLogin');
         }
         
         $token = $this->makeToken($user);

@@ -68,8 +68,8 @@
 		{{ comment.body }}
 	</div>
 	
-	{% if (admin) or (comment.user.id == user.id) %}
 		<div class="flex justify-end p-3">
+		{% if (comment.user.id == user.id) %}
 			<div class="mr-3">
 				<form action="/editComment/{{ comment.id }}">
 					<div class="w-full flex">
@@ -77,6 +77,8 @@
 					</div>
 				</form>	
 			</div>
+		{% endif %}
+		{% if (admin) or (comment.user.id == user.id) or (post.user.id == user.id) %}
 			<div>
 				<form action="/deleteComment/{{ comment.id }}" method="POST">
 					<input type="hidden" name="method" value="DELETE">
@@ -87,7 +89,7 @@
 				</form>
 			</div>		
 		</div>
-	{% endif %}
+		{% endif %}
 	
 </div>
 
