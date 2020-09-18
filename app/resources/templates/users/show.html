@@ -24,7 +24,11 @@
 			 </div>
 			 <div class="text-sm text-left flex justify-between mb-10">
 				 <div class="h-16 w-16 rounded-full overflow-hidden mr-4">
+				 	{% if user.image %}
 					 <img class="w-full h-full object-cover avatar" data-tippy-content="{{ user.name }}" src="/{{ user.image }}" alt="{{ user.name }}" tabindex="0">
+				 	{% else %}
+				 	 <img class="w-full h-full object-cover avatar" data-tippy-content="{{ user.name }}" src="https://source.unsplash.com/collection/10865343" alt="{{ user.name }}" tabindex="0">
+				 	{% endif %}
 				 </div>
 				 <div class="h-full text-lg my-auto">
 					 <div>
