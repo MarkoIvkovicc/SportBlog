@@ -11,14 +11,14 @@ class AuthController
 {
 	public function loginForm()
 	{
-        session_start();
+        startSession();
         isset($_SESSION['token']) ? header('Location: /') : '';
 		echo twig()->render('auth/loginForm.html');
 	}
 
     public function failLoginForm()
     {
-        session_start();
+        startSession();
         isset($_SESSION['token']) ? header('Location: /') : '';
         $fail = true;
         echo twig()->render('auth/loginForm.html', compact('fail'));
@@ -43,16 +43,25 @@ class AuthController
 
     public function logout()
     {
-        session_start();
-
-        unset($_SESSION['token']);
+        // start a session
+        startSession();
+ 
+        // destroy everything in this session
+        unset($_SESSION);
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(
+                session_name(), '', time() - 42000, $params["path"], $params["domain"], $params["secure"],$params["httponly"]
+            );
+        }
+        session_destroy();
 
         header('location:/login');
     }
 
     public function registerForm()
     {
-        session_start();
+        startSession();
         isset($_SESSION['token']) ? header('Location: /') : '';
     	echo twig()->render('auth/registerForm.html');
     }
