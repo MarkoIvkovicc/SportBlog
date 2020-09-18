@@ -10,7 +10,7 @@ use App\Models\User as UserModel;
 class PostsController
   {
     public function index () {
-      session_start();
+      startSession();
       $admin = $logged = $user = null;
 
     	if (isset($_SESSION['token'])) {

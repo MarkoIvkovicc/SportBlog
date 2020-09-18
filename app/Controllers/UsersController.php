@@ -51,7 +51,7 @@ class UsersController {
         exit();
       }
 
-      session_start();
+      startSession();
       $admin = $logged = null;
 
       if (isset($_SESSION['token'])) {

@@ -25,8 +25,9 @@ class HomepageController {
 
         $pastMonthFirst2 = array_slice($pastMonth, 0, 2);
         $pastMonthLast2 = array_slice($pastMonth, 2, 2);
+        
+        startSession();
 
-    	session_start();
     	$admin = $logged = null;
 
     	if (isset($_SESSION['token'])) {
@@ -34,10 +35,6 @@ class HomepageController {
 	    	$user->isAdmin() ? $admin = true : '';
 	    	isset($user) ? $logged = true : $logged = false;
     	}
-
-        // die(var_dump($lastPost));
-
-        // wordwrap($text, 8, "\n", false);
 
         echo twig()->render('homepage.html', compact('admin', 'logged', 'lastPost', 'last3Posts', 'pastMonthFirst2', 'pastMonthLast2')); 
     }
