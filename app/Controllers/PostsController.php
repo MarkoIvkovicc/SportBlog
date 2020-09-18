@@ -31,9 +31,17 @@ class PostsController
     }
 
     public function store () {
+      $UserModel = new UserModel;
+
+      if (request()->get('title') == null || request()->get('body') == null) {
+        $UserModel->isAdmin() ? $admin = true : $admin = false;
+        $emptyInput = true;
+        echo twig()->render('posts/post-create.html', compact('admin', 'user', 'emptyInput')); 
+        return;
+      }
+
       $em = em();
       $post = new Post;
-      $UserModel = new UserModel;
       $userEM = $em->find(UserEM::class, $UserModel->getId());
       
       $post->setTitle(request()->get('title'));
@@ -41,20 +49,21 @@ class PostsController
       $post->setUser($userEM);
       $post->setCreatedAt(new \DateTime);
 
-      if ($_FILES["image"]["name"] != '') {
-        $storage = new StorageController();
-        if ($post->getImage() != null) {
-          $storage->deleteImage($post->getImage());
-        }
-      }
-
       $em->persist($post);
       $em->flush();
 
-      $post->setImage($storage->getImage('post', $post->getId()));
+      if ($_FILES["image"]["name"] != '') {
+        $storage = new StorageController();
 
-      $em->merge($post);
-      $em->flush();
+        if ($post->getImage() != null) {
+          $storage->deleteImage($post->getImage());
+        }
+
+        $post->setImage($storage->getImage('post', $post->getId()));
+
+        $em->merge($post);
+        $em->flush();
+      }
 
       return header("Location: /posts/" . $post->getId());
     }
