@@ -118,7 +118,7 @@
            <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ lastPost.user.name }}" src="https://source.unsplash.com/collection/10865343" alt="{{ lastPost.user.name }}" tabindex="0">
           {% endif %}
           <p class=" text-gray-600 text-xs md:text-sm px-6"> CREATED AT {{ lastPost.create_at|date('d.m.Y H:i') }}</p>
-          <p class="text-gray-600 text-xs">1 MIN READ</p>
+          <p class="text-gray-600 text-xs">{{ readTime[0] }} MIN READ</p>
         </div>
       </div>
       </div>
@@ -128,11 +128,11 @@
     </div>
     <!--/Lead Card-->
 
-
+    {% set n=0 %}
     <!--Posts Container-->
     <div class="flex flex-wrap justify-between pt-12 -mx-6">
-
       {% for post in last3Posts %}
+      {% set n = (n + 1) %}
         <!--1/3 col -->
         <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
           <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
@@ -157,14 +157,16 @@
               <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT {{ post.create_at|date('d.m.Y H:i') }}</p>
             </div>
             <div class="w-1/4">
-              <p class="text-gray-600 text-xs md:w-full text-right">1 MIN READ</p>
+              <p class="text-gray-600 text-xs md:w-full text-right">{{ readTime[n] }} MIN READ</p>
             </div>
         </div>
           </div>
         </div>
       {% endfor %}
 
+    {% set n=3 %}
       {% for post in pastMonthFirst2 %}
+      {% set n = (n + 1) %}
       <!--1/2 col -->
       <div class="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
         <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
@@ -189,7 +191,7 @@
             <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT {{ post.create_at|date('d.m.Y H:i') }}</p>
           </div>
           <div class="w-1/4">
-            <p class="text-gray-600 text-xs md:w-full text-right">1 MIN READ</p>
+            <p class="text-gray-600 text-xs md:w-full text-right">{{ readTime[n] }} MIN READ</p>
           </div>
       </div>
         </div>
@@ -220,7 +222,7 @@
             <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT {{ pastMonthLast2[0].create_at|date('d.m.Y H:i') }}</p>
           </div>
           <div class="w-1/4">
-            <p class="text-gray-600 text-xs md:w-full text-right">1 MIN READ</p>
+            <p class="text-gray-600 text-xs md:w-full text-right">{{ readTime[6] }} MIN READ</p>
           </div>
       </div>
         </div>
@@ -250,7 +252,7 @@
                 <p class="w-full text-gray-600 text-xs md:text-sm px-6 text-center">CREATED AT {{ pastMonthLast2[1].create_at|date('d.m.Y H:i') }}</p>
               </div>
               <div class="w-1/4">
-                <p class="text-gray-600 text-xs md:w-full text-right">1 MIN READ</p>
+                <p class="text-gray-600 text-xs md:w-full text-right">{{ readTime[7] }} MIN READ</p>
               </div>
           </div>
         </div>
