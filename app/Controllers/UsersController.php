@@ -58,7 +58,7 @@ class UsersController {
       if (isset($_SESSION['token'])) {
         $userModel = new UserModel;
         $userModel->isAdmin() ? $admin = true : $admin = false;
-        isset($userModel) ? $logged = true : $logged = false;
+        $userModel->getId() != null ? $logged = true : $logged = false;
       }
 
       $posts = em()->getRepository(Post::class)->findBy(array('user' => $user));

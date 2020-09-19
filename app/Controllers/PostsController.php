@@ -16,7 +16,7 @@ class PostsController
     	if (isset($_SESSION['token'])) {
 	    	$user = new UserModel;
 	    	$user->isAdmin() ? $admin = true : '';
-	    	isset($user) ? $logged = true : $logged = false;
+	    	$user->getId() != null ? $logged = true : $logged = false;
     	}
     
       $posts = em()->getRepository(Post::class)->findBy(array(),array('id'=>'DESC'));
@@ -24,8 +24,12 @@ class PostsController
   }
 
     public function create () {
-      $user = new UserModel;        
-      $user->isAdmin() ? $admin = true : $admin = false;
+      $admin = $logged = $user = null;
+
+      if (isset($_SESSION['token'])) {
+        $user = new UserModel;
+        $user->isAdmin() ? $admin = true : '';
+      }
 
       echo twig()->render('posts/post-create.html', compact('admin', 'user'));  
     }
@@ -72,9 +76,13 @@ class PostsController
     {
       $post = em()->find(Post::class, $id);
       $comments = $this->getCommentsByPostId($id);
-      $user = new UserModel;
-      $user->isAdmin() ? $admin = true : $admin = false;
-      isset($user) ? $logged = true : $logged = false;
+      $admin = $logged = $user = null;
+
+      if (isset($_SESSION['token'])) {
+        $user = new UserModel;
+        $user->isAdmin() ? $admin = true : '';
+        $user->getId() != null ? $logged = true : $logged = false;
+      }
       
       echo twig()->render('posts/post-show.html', compact('post', 'comments', 'user', 'admin', 'logged'));
     }
