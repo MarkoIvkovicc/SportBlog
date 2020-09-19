@@ -14,7 +14,8 @@ class HomepageController {
         $last4 = em()->getRepository(Post::class)->findBy(array(),array('id'=>'DESC'),4,0);
 
         $lastPost = $last4[0];
-        $last3Posts = array_slice($last4, 1);
+        unset($last4[0]);
+        $last3Posts = $last4;
 
         //Get Last 4 Created Posts Older Than 31 Days
         $now = new DateTime();
