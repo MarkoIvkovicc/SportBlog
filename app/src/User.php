@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
+ * @ORM\Entity(repositoryClass="Jhg\DoctrinePagination\ORM\PaginatedRepository")
  */
 class User
 {

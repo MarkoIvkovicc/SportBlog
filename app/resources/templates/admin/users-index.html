@@ -5,6 +5,7 @@
 <div class="bg-blue-800 p-2 shadow text-xl text-white">
     <h3 class="font-bold pl-2">Users</h3>
 </div>
+{% include "components/pagination.html" %}
 <div class="p-10">
 {% for user in users %}
         <div class="md:flex md:justify-between p-5 hover:shadow-xl rounded-lg">
@@ -37,4 +38,5 @@
 
     {% endfor %}
 </div>
+{% include "components/pagination.html" %}
 {% endblock main_content %}
