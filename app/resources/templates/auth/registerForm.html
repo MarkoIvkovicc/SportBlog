@@ -16,19 +16,19 @@
                     </div>
                     
                     {% if msgUsername %}
-                        <div style="border: 1px solid red; border-radius: 5px">
+                        <div class="bg-red-200 colr-red-600 p-5 rounded-lg">
                           <span class="px-3 text-red-600">Username is already taken!</span>
                         </div>
                     {% endif %}
 
                     {% if msgEmail %}
-                        <div style="border: 1px solid red; border-radius: 5px">
+                        <div class="bg-red-200 colr-red-600 p-5 rounded-lg">
                           <span class="px-3 text-red-600">Email is already taken!</span>
                         </div>
                     {% endif %}
 
                     {% if msgPassword %}
-                        <div style="border: 1px solid red; border-radius: 5px">
+                        <div class="bg-red-200 colr-red-600 p-5 rounded-lg">
                           <span class="px-3 text-red-600">Password have less then 5 characters!</span>
                         </div>
                     {% endif %}
