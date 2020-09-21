@@ -9,7 +9,7 @@ class Authentication
 {
 	public function passed()
 	{
-		session_start();
+		startSession();
 		
 		if (! isset($_SESSION['token']))
 		{	

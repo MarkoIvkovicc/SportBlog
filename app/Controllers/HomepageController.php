@@ -14,7 +14,8 @@ class HomepageController {
         $last4 = em()->getRepository(Post::class)->findBy(array(),array('id'=>'DESC'),4,0);
 
         $lastPost = $last4[0];
-        $last3Posts = array_slice($last4, 1);
+        unset($last4[0]);
+        $last3Posts = $last4;
 
         //Get Last 4 Created Posts Older Than 31 Days
         $now = new DateTime();
@@ -25,8 +26,9 @@ class HomepageController {
 
         $pastMonthFirst2 = array_slice($pastMonth, 0, 2);
         $pastMonthLast2 = array_slice($pastMonth, 2, 2);
-
-    	session_start();
+        
+        //Check if user is admin and if it is logged
+        startSession();
     	$admin = $logged = null;
 
     	if (isset($_SESSION['token'])) {
@@ -35,10 +37,44 @@ class HomepageController {
 	    	isset($user) ? $logged = true : $logged = false;
     	}
 
-        // die(var_dump($lastPost));
+        //Setting time needed to read post
+        $readTime[] = $this->minRead($lastPost->getBody());
+        foreach ($last3Posts as $post) {
+            $readTime[] = $this->minRead($post->getBody());
+        }
+        foreach ($pastMonth as $post) {
+            $readTime[] = $this->minRead($post->getBody());
+        }
 
-        // wordwrap($text, 8, "\n", false);
+        echo twig()->render('homepage.html', compact('admin', 'logged', 'lastPost', 'last3Posts', 'pastMonthFirst2', 'pastMonthLast2', 'readTime')); 
+    }
 
-        echo twig()->render('homepage.html', compact('admin', 'logged', 'lastPost', 'last3Posts', 'pastMonthFirst2', 'pastMonthLast2')); 
+    private function minRead($srtlen) {
+        $srtlen = strlen($srtlen);
+        switch ($srtlen) {
+            case $srtlen < 2000:
+                $min = 1;
+                break;
+            case $srtlen < 2400:
+                $min = 2;
+                break;
+            case $srtlen < 2800:
+                $min = 3;
+                break;
+            case $srtlen < 3200:
+                $min = 4;
+                break;
+            case $srtlen < 3600:
+                $min = 5;
+                break;
+            case $srtlen >= 3600:
+                $min = '5+';
+                break;
+            default:
+                $min = 'Nan';
+                break;
+        }
+
+        return $min;
     }
 } 

@@ -11,6 +11,16 @@
 
 {% block main_content %}
 <div class="container p-5">
+    {% if msgOldPwd %}
+        <div style="border: 1px solid red; border-radius: 5px">
+          <span class="px-3 text-red-600">Current password is not correct!</span>
+        </div>
+    {% endif %}
+    {% if msgNewPwd %}
+        <div style="border: 1px solid red; border-radius: 5px">
+          <span class="px-3 text-red-600">New password have less then 4 character!</span>
+        </div>
+    {% endif %}
     <form action="/updateUser/{{ user.id }}" method="POST" enctype="multipart/form-data">
         <div>
 			<input type="hidden" name="id" value="{{ user.id }}">
@@ -55,12 +65,12 @@
                     <option value="admin">Admin</option>
                 </select>
             </div>
+            {% endif %}
             <div>
                 <img src="/{{ user.image }}" alt="Avatar of Author">
                 <label>Image</label>
                 <input type="file" name="image">
             </div>
-            {% endif %}
         </div> 
         <div class="w-full flex">
             <button type="submit" class="text-white bg-green-600 rounded p-3 m-3 w-1/4 hover:bg-green-500 w-full" name="submit">Update User</button>
