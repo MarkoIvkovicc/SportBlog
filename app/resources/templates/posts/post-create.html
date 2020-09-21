@@ -11,7 +11,7 @@
     <form action="/posts" method="POST" enctype="multipart/form-data">
         <div>
             {% if emptyInput %}
-                <div style="border: 1px solid red; border-radius: 5px; text-align: center;">
+                <div class="bg-red-200 colr-red-600 p-5 rounded-lg">
                   <span class="px-3 text-red-600">You must fill TITLE and BODY!</span>
                 </div>
             {% endif %}
