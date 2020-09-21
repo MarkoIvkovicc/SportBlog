@@ -12,6 +12,7 @@
         "symfony/http-foundation": "^5.1",
         "twig/twig": "^3.0",
         "doctrine/orm": "^2.7",
-        "lcobucci/jwt": "^3.3"
+        "lcobucci/jwt": "^3.3",
+        "javihgil/doctrine-pagination": "^1.0"
     }
 }

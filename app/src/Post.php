@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="posts")
+ * @ORM\Entity(repositoryClass="Jhg\DoctrinePagination\ORM\PaginatedRepository")
  */
 class Post
 {
