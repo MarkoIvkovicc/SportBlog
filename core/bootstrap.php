@@ -1,7 +1,5 @@
 <?php
 
-error_reporting(E_ALL & ~E_NOTICE);
-
 require 'app/Services/ServiceProviders.php';
 require 'app/Services/Helpers.php';
 

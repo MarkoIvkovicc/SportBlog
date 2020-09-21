@@ -10,6 +10,12 @@
 <div class="container p-5">
     <form action="/posts" method="POST" enctype="multipart/form-data">
         <div>
+            {% if emptyInput %}
+                <div style="border: 1px solid red; border-radius: 5px; text-align: center;">
+                  <span class="px-3 text-red-600">You must fill TITLE and BODY!</span>
+                </div>
+            {% endif %}
+
             <div class="w-full text-center">
                 <div class="text-3xl mb-5">
                     <label for="title">Post Title</label>

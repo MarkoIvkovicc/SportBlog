@@ -45,19 +45,20 @@ class UsersController {
 
     public function show ($id) {
       $user = em()->find(User::class, $id);
+      $userModel = null;
 
       if (! $user) {
         echo twig()->render('http-codes/404.html');
         exit();
       }
 
-      session_start();
+      startSession();
       $admin = $logged = null;
 
       if (isset($_SESSION['token'])) {
         $userModel = new UserModel;
         $userModel->isAdmin() ? $admin = true : $admin = false;
-        isset($userModel) ? $logged = true : $logged = false;
+        $userModel->getId() != null ? $logged = true : $logged = false;
       }
 
       $posts = em()->getRepository(Post::class)->findBy(array('user' => $user));
@@ -68,27 +69,39 @@ class UsersController {
     public function update($id)
     {
       $em = em();
-      $user = $em->find(User::class, $id); 
-      $storage = new StorageController;
+      $user = $em->find(User::class, $id);
 
       $user->setName(request()->get('username'))
         ->setEmail(request()->get('email'));
 
       if (request()->get('old-password') != null) {
         $oldPass = $user->getPassword();
+        $userModel = new UserModel;
+        $userModel->isAdmin() ? $admin = true : $admin = false;
 
         if (password_verify(request()->get('old-password'), $oldPass)) {
-          $user->setPassword(password_hash(request()->get('new-password'), PASSWORD_BCRYPT));
+          if (strlen(request()->get('new-password')) < 4) {
+            $msgNewPwd = true;
+            echo twig()->render('users/edit.html', compact('user', 'admin', 'msgNewPwd')); return;
+          } else {
+            $user->setPassword(password_hash(request()->get('new-password'), PASSWORD_BCRYPT));
+          }
+        } else {
+          $msgOldPwd = true;
+          echo twig()->render('users/edit.html', compact('user', 'admin', 'msgOldPwd')); return;
         }
       }
 
       request()->get('role') ? $user->setRole(request()->get('role')) : '';
 
-      if ($user->getImage() != null) {
-        $storage->deleteImage($user->getImage());
+      if ($_FILES["image"]["name"] != '') {
+        $storage = new StorageController;
+        if ($user->getImage() != null) {
+          $storage->deleteImage($user->getImage());
+        }
+        
+        $user->setImage($storage->getImage('user', $id));
       }
-      
-      $user->setImage($storage->getImage('user', $id));
 
       $em->merge($user);
       $em->flush();

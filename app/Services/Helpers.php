@@ -32,4 +32,10 @@ $config = Setup::createAnnotationMetadataConfiguration(array("app/src"), $isDevM
 return $entityManager = EntityManager::create($params, $config);
 }
 
-
+function startSession()
+{
+	if (!isset($_SESSION))
+	{ 
+		session_start(); 
+	}
+}
