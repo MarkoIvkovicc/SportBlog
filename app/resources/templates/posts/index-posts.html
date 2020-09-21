@@ -16,6 +16,7 @@
 <div>
 {% endblock header_title %}
 <div class="mt-20">
+    {% include "components/pagination.html" %}
     {% for post in posts %}
     <div class="p-5 justify-between hover:bg-gray-100 m-10 rounded-lg hover:shadow-lg">
         <div class="py-5">
@@ -70,6 +71,7 @@
         
     </div>
     {% endfor %}
+    {% include "components/pagination.html" %} <br><br>
 </div>
 
     {% block footer_scripts %}

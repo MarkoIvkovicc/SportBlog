@@ -5,30 +5,64 @@ namespace App\Controllers;
 use App\src\Post;
 use App\src\User;
 use App\Models\User as UserModel;
+use Jhg\DoctrinePagination\ORM\PaginatedQueryBuilder;
+use Jhg\DoctrinePagination\ORM\PaginatedRepository;
 
 class DashboardController {
   
     public function postsIndex () {
         $user = new UserModel;
 
+        //Pagination Block
+        request()->get('currentPage') != null ? (($currentPage = request()->get('currentPage')) && ($resultPerPage = request()->get('resultPerPage'))) : $currentPage = 1;
+        request()->get('resultPerPage') != null ? $resultPerPage = request()->get('resultPerPage') : $resultPerPage = 10;
+
         if ($user->isAdmin()) {
-            $posts = em()->getRepository(Post::class)->findAll();
+            $posts = em()->getRepository(Post::class)->findPageBy($currentPage, $resultPerPage, [], ['id'=>'DESC']);
         } elseif ($user->isUser()) {
-            $posts = em()->getRepository(Post::class)->findBy(array('user' => $user->getId()));
+            $posts = em()->getRepository(Post::class)->findPageBy($currentPage, $resultPerPage, ['user' => $user->getId()], ['id'=>'DESC']);
         }
+
+        $pagination = [
+        'totalPages' => $posts->getPages(),
+        'currentPage' => $posts->getPage(),
+        'nextPage' => $posts->getNextPage(),
+        'prevPage' => $posts->getPrevPage(),
+        'next2Page' => $posts->getNextPage() + 1,
+        'prev2Page' => $posts->getPrevPage() - 1,
+        'rpp' => $resultPerPage,
+        'route' => 'dashboard/posts',
+        ];
+        //End Pagination Block
 
         $user->isAdmin() ? $admin = true : $admin = false;
 
-        echo twig()->render('admin/posts-index.html', compact('posts', 'admin', 'user'));
+        echo twig()->render('admin/posts-index.html', compact('posts', 'admin', 'user', 'pagination'));
     }
 
     public function usersIndex () {
-        $users = em()->getRepository(User::class)->findAll();
+        //Pagination Block
+        request()->get('currentPage') != null ? (($currentPage = request()->get('currentPage')) && ($resultPerPage = request()->get('resultPerPage'))) : $currentPage = 1;
+        request()->get('resultPerPage') != null ? $resultPerPage = request()->get('resultPerPage') : $resultPerPage = 10;
+
+        $users = em()->getRepository(User::class)->findPageBy($currentPage, $resultPerPage, [], ['id'=>'DESC']);
+
+        $pagination = [
+        'totalPages' => $users->getPages(),
+        'currentPage' => $users->getPage(),
+        'nextPage' => $users->getNextPage(),
+        'prevPage' => $users->getPrevPage(),
+        'next2Page' => $users->getNextPage() + 1,
+        'prev2Page' => $users->getPrevPage() - 1,
+        'rpp' => $resultPerPage,
+        'route' => 'dashboard/users',
+        ];
+        //End Pagination Block
 
         $user = new UserModel;
         $user->isAdmin() ? $admin = true : $admin = false;
 
-        echo twig()->render('admin/users-index.html', compact('users', 'admin', 'user'));
+        echo twig()->render('admin/users-index.html', compact('users', 'admin', 'user', 'pagination'));
     }
 
     public function index () {

@@ -6,9 +6,10 @@ use App\src\Post as Post;
 use App\src\Comment;
 use App\src\User as UserEM;
 use App\Models\User as UserModel;
+use Jhg\DoctrinePagination\ORM\PaginatedQueryBuilder;
+use Jhg\DoctrinePagination\ORM\PaginatedRepository;
 
-class PostsController
-  {
+class PostsController {
     public function index () {
       startSession();
       $admin = $logged = $user = null;
@@ -18,9 +19,26 @@ class PostsController
 	    	$user->isAdmin() ? $admin = true : '';
 	    	$user->getId() != null ? $logged = true : $logged = false;
     	}
-    
-      $posts = em()->getRepository(Post::class)->findBy(array(),array('id'=>'DESC'));
-      echo twig()->render('posts/index-posts.html', compact('posts', 'admin', 'logged', 'user'));
+
+      //Pagination Block
+      request()->get('currentPage') != null ? (($currentPage = request()->get('currentPage')) && ($resultPerPage = request()->get('resultPerPage'))) : $currentPage = 1;
+      request()->get('resultPerPage') != null ? $resultPerPage = request()->get('resultPerPage') : $resultPerPage = 10;
+
+      $posts = em()->getRepository(Post::class)->findPageBy($currentPage, $resultPerPage, [], ['id'=>'DESC']);
+
+      $pagination = [
+        'totalPages' => $posts->getPages(),
+        'currentPage' => $posts->getPage(),
+        'nextPage' => $posts->getNextPage(),
+        'prevPage' => $posts->getPrevPage(),
+        'next2Page' => $posts->getNextPage() + 1,
+        'prev2Page' => $posts->getPrevPage() - 1,
+        'rpp' => $resultPerPage,
+        'route' => 'posts',
+      ];
+      //End Pagination Block
+
+      echo twig()->render('posts/index-posts.html', compact('posts', 'admin', 'logged', 'user', 'pagination'));
   }
 
     public function create () {
