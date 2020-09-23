@@ -43,7 +43,9 @@
 
 
 <div class="text-lg">
+	{% if post.image %}
 		<img class="h-full w-full object-cover rounded-md mb-10" src="/{{ post.image }}" alt="Image in post">
+	{% endif %}
 	<div>
 		{% autoescape %}
 		{{ post.body|raw }}
