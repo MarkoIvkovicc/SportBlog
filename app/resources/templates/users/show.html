@@ -1,71 +1,91 @@
 {% extends "homepage.html" %}
 {% block scripts %}
-   {{ parent() }}
-    {% endblock scripts %}
+{{ parent() }}
+{% endblock scripts %}
 {% block body_content %}
 {% block header_image %}
 <div class="w-full m-0 p-0 bg-cover bg-bottom mt-40">
-{% endblock header_image %}
+	{% endblock header_image %}
 
-{% block header_title %}
-<div class="container max-w-4xl mx-auto pt-16 md:pt-5 text-center break-normal ">
-	 <!--Title-->
-	 <!-- edit button -->
-<div>
-	{% if (admin) or (user.id == userModel.id) %}
-		<a href="/editUser/{{ user.id }}">Edit User</a>
-	{% endif %}
-</div>
-	<!-- end of edit button -->
-     <div class="text-xl md:text-6xl text-gray-700">
-		 <div class="">
-			<div class="mb-20">
-				{{ user.name }}
-			 </div>
-			 <div class="text-sm text-left flex justify-between mb-10">
-				 <div class="h-16 w-16 rounded-full overflow-hidden mr-4">
-				 	{% if user.image %}
-					 <img class="w-full h-full object-cover avatar" data-tippy-content="{{ user.name }}" src="/{{ user.image }}" alt="{{ user.name }}" tabindex="0">
-				 	{% else %}
-				 	 <img class="w-full h-full object-cover avatar" data-tippy-content="{{ user.name }}" src="https://source.unsplash.com/collection/10865343" alt="{{ user.name }}" tabindex="0">
-				 	{% endif %}
-				 </div>
-				 <div class="h-full text-lg my-auto">
-					 <div>
-						{{ user.email }}
-					 </div>
-				 </div>
+	{% block header_title %}
+	<div class="container max-w-4xl mx-auto pt-16 md:pt-5 text-center break-normal ">
+		<!--Title-->
+		<!-- edit button -->
+		<div>
+			{% if (admin) or (user.id == userModel.id) %}
+			<a href="/editUser/{{ user.id }}">Edit User</a>
+			{% endif %}
+		</div>
+		<!-- end of edit button -->
+		<div class="text-xl md:text-6xl text-gray-700">
+			<div class="">
+				<div class="mb-20">
+					{{ user.name }}
+				</div>
+				<div class="text-sm text-left flex justify-between mb-10">
+					<div class="h-16 w-16 rounded-full overflow-hidden mr-4">
+						{% if user.image %}
+						<img class="w-full h-full object-cover avatar" data-tippy-content="{{ user.name }}"
+							src="/{{ user.image }}" alt="{{ user.name }}" tabindex="0">
+						{% else %}
+						<img class="w-full h-full object-cover avatar" data-tippy-content="{{ user.name }}"
+							src="https://source.unsplash.com/collection/10865343" alt="{{ user.name }}" tabindex="0">
+						{% endif %}
+					</div>
+					<div class="h-full text-lg my-auto">
+						<div>
+							{{ user.email }}
+						</div>
+					</div>
+				</div>
+				<div class="p-5">
+					<h2 class="text-left text-xl mb-5">{{ user.name }}'s posts</h2>
+					{% for post in posts %}
+					<div class="hover:bg-gray-300 border rounded-md mb-10 p-5 flex justify-between">
+						<div class="text-left text-4xl mb-5">
+							<a class="hover:underline" href="/posts/{{post.id}}">{{ post.title }}</a>
+						</div>
+						{% if post.image %}
+						<div class=" h-48 w-64 ml-auto">
+							<a href="/posts/{{post.id}}">
+								<img class="h-full w-full object-cover rounded-lg" src="/{{ post.image }}" alt="">
+						</div>
+						{% else %}
+						<div class=" h-48 w-64 ml-auto">
+							<a href="/posts/{{post.id}}">
+								<img class="h-full w-full object-cover rounded-lg" src="https://source.unsplash.com/collection/10865343"
+									alt="">
+						</div>
+						{% endif %}
+					</div>
+					{% endfor %}
+				</div>
+
 			</div>
-			 {% for post in posts %}
-			 <div class="text-left text-4xl">
-				<a class="hover:underline" href="/posts/{{post.id}}">{{ post.title }}</a>
-			 </div> 
-			 {% endfor %}
-		 </div>
-		 <hr class="mt-10">
-     </div>
-
- {% endblock header_title %}
- <div class="mt-20 p-5">
-
-	{% autoescape %}
-		<div class="text-lg">
-		{{ post.body|raw }}
+			<hr class="mt-10">
 		</div>
 
-	{% endautoescape %}
+		{% endblock header_title %}
+		<div class="mt-20 p-5">
+
+			{% autoescape %}
+			<div class="text-lg">
+				{{ post.body|raw }}
+			</div>
+
+			{% endautoescape %}
+		</div>
 	</div>
-</div>
 
 
 
-{% block footer_scripts %}
-{% include "components/edit-post-button-functions.html" %}
-<script>
-	//Init tooltips
-	tippy('.avatar')
+	{% block footer_scripts %}
+	{% include "components/edit-post-button-functions.html" %}
+	<script>
+		//Init tooltips
+		tippy('.avatar')
 	</script>
 	{{ parent() }}
-{% endblock footer_scripts %}
-	
-{% endblock body_content %}
+	{% endblock footer_scripts %}
+
+	{% endblock body_content %}
