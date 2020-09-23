@@ -41,7 +41,9 @@
 		{% endblock header_title %}
 		<div class="mt-20 p-5">
 			<div class="text-lg">
-				<img class="h-full w-full object-cover rounded-md mb-10" src="/{{ post.image }}" alt="Image in post">
+				{% if post.image %}
+					<img class="h-full w-full object-cover rounded-md mb-10" src="/{{ post.image }}" alt="Image in post">
+				{% endif %}
 				<div>
 					{% autoescape %}
 					{{ post.body|raw }}
