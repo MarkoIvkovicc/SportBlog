@@ -1,45 +1,53 @@
-<div style="color: rgb(40, 156, 173);  font-size: 1.2em; font-weight: bold">
+<div class="w-64  m-auto p-5" style="color: rgb(40, 156, 173);  font-size: 1.2em; font-weight: bold">
 	<form action="/{{ pagination.route }}" method="GET">
 		<!-- Results Per Page -->
 		<label style="font-weight: normal;">Items Per Page</label>
-		<select name="resultPerPage" onchange="this.form.submit()" style="border-width: 3px;">
+		<select name="resultPerPage" onchange="this.form.submit()" style="border-width: 3px;" class="m-auto">
 			<option value="{{ pagination.rpp }}" selected>{{ pagination.rpp }}</option>
-		    <option value="10">10</option>
-		    <option value="20">20</option>
-		    <option value="50">50</option>
-		    <option value="100">100</option>
-		</select>	<br><br>
+			<option value="10">10</option>
+			<option value="20">20</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+		</select> <br><br>
 
 		<!-- Pages -->
-			<!-- Previous Page -->
+		<!-- Previous Page -->
+		<div class="flex">
+
 			{% if pagination.currentPage != 1 %}
-				<button name="currentPage" type="submit" value="{{ pagination.prevPage }}">Prev </button>&emsp;
-				<!-- First Page -->
-				<button name="currentPage" type="submit" value="1">First</button>&emsp;
+			<button class="m-auto" name="currentPage" type="submit" value="{{ pagination.prevPage }}">Prev </button>&emsp;
+			<!-- First Page -->
+			<button class="m-auto" name="currentPage" type="submit" value="1">First</button>&emsp;
 			{% endif %}
 			<!-- Previous Two Page -->
 			{% if pagination.prev2Page > 0 %}
-				<button name="currentPage" type="submit" value="{{ pagination.prev2Page }} - 1">{{ pagination.prev2Page }}</button>&emsp;
+			<button class="m-auto" name="currentPage" type="submit"
+				value="{{ pagination.prev2Page }} - 1">{{ pagination.prev2Page }}</button>&emsp;
 			{% endif %}
 			<!-- Previous Page -->
-			<button name="currentPage" type="submit" value="{{ pagination.prevPage }} - 1">{{ pagination.prevPage }}</button>&emsp;
+			<button class="m-auto" name="currentPage" type="submit"
+				value="{{ pagination.prevPage }} - 1">{{ pagination.prevPage }}</button>&emsp;
 			<!-- Current Page -->
-			<button name="currentPage" type="submit" value="{{ pagination.currentPage }}" style="font-size: 1.4em; font-weight: bolder;">{{ pagination.currentPage }}</button>&emsp;
+			<button class="m-auto" name="currentPage" type="submit" value="{{ pagination.currentPage }}"
+				style="font-size: 1.4em; font-weight: bolder;">{{ pagination.currentPage }}</button>&emsp;
 			<!-- Next Page -->
 			{% if pagination.nextPage < (pagination.totalPages + 1)%}
-				<button name="currentPage" type="submit" value="{{ pagination.nextPage }}">{{ pagination.nextPage }}</button>&emsp;
+			<button class="m-auto" name="currentPage" type="submit"
+				value="{{ pagination.nextPage }}">{{ pagination.nextPage }}</button>&emsp;
 			{% endif %}
 			<!-- Next Two Pages -->
 			{% if (pagination.next2Page < (pagination.totalPages + 1)) and (pagination.next2Page != 1)%}
-				<button name="currentPage" type="submit" value="{{ pagination.next2Page }}">{{ pagination.next2Page }}</button>&emsp;
+			<button class="m-auto" name="currentPage" type="submit"
+				value="{{ pagination.next2Page }}">{{ pagination.next2Page }}</button>&emsp;
 			{% endif %}
 			<!-- Last Page -->
 			{% if pagination.currentPage != pagination.totalPages %}
-				<button name="currentPage" type="submit" value="{{ pagination.totalPages }}">Last</button>&emsp;
+			<button class="m-auto" name="currentPage" type="submit" value="{{ pagination.totalPages }}">Last</button>&emsp;
 			{% endif %}
 			<!-- Next Page -->
 			{% if pagination.currentPage != pagination.totalPages %}
-			<button name="currentPage" type="submit" value="{{ pagination.nextPage }}">Next</button>&emsp;
+			<button class="m-auto" name="currentPage" type="submit" value="{{ pagination.nextPage }}">Next</button>&emsp;
 			{% endif %}
+		</div>
 	</form>
 </div>

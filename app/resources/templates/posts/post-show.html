@@ -2,120 +2,122 @@
 {% block body_content %}
 {% block header_image %}
 <div class="w-full m-0 p-0 bg-cover bg-bottom mt-40">
-{% endblock header_image %}
+	{% endblock header_image %}
 
-{% block header_title %}
-<div class="container max-w-4xl mx-auto pt-16 md:pt-5 text-center break-normal ">
-	 <!--Title-->
-
-
-	 <!-- edit button -->
-	{% if (admin) or (post.user.id == user.id) %}
+	{% block header_title %}
+	<div class="container max-w-4xl mx-auto pt-16 md:pt-5 text-center break-normal ">
+		<!--Title-->
+		<!-- edit button -->
+		{% if (admin) or (post.user.id == user.id) %}
 		{% include "components/edit-post-button.html" %}
-	{% endif %}
-	<!-- end of edit button -->
-
-
-     <div class="text-xl text-2xl md:text-6xl text-gray-700">
-		 <div class="">
-			<div class="mb-20">
-				{{ post.title }}
-			 </div>
-			 <div class="text-sm text-left flex">
-				 <div class="h-16 w-16 rounded-full overflow-hidden mr-4">
-				 	{% if post.user.image %}
-                     <img class="w-full h-full object-cover avatar" data-tippy-content="{{ post.user.name }}" src="/{{ post.user.image }}" alt="{{ post.user.name }}" tabindex="0">
-                    {% else %}
-                     <img class="w-full h-full object-cover avatar" data-tippy-content="{{ post.user.name }}" src="https://source.unsplash.com/collection/10865343" alt="{{ post.user.name }}" tabindex="0">
-                    {% endif %}
-				 </div>
-
-				 <div class="italic hover:underline mt-auto">
-					<a href="/users/{{ post.user.id }}">{{ post.user.name }}</a>
-				 </div>
-			</div>
-		 </div>
-		 <hr class="mt-10">
-     </div>
-
- {% endblock header_title %}
- <div class="mt-20 p-5">
-
-
-<div class="text-lg">
-	{% if post.image %}
-		<img class="h-full w-full object-cover rounded-md mb-10" src="/{{ post.image }}" alt="Image in post">
-	{% endif %}
-	<div>
-		{% autoescape %}
-		{{ post.body|raw }}
-		{% endautoescape %}
-	</div>
-</div>
-
-
-</div>
-
-
-
-
-{% for comment in comments %}
-<div class="border rounded-lg p-5 mb-8">
-	<div class="flex mb-5">
-		<div class="h-16 w-16 rounded-full overflow-hidden mr-4">
-			{% if post.user.image %}
-             <img class="w-full h-full object-cover avatar" data-tippy-content="{{ post.user.name }}" src="/{{ post.user.image }}" alt="{{ post.user.name }}" tabindex="0">
-            {% else %}
-             <img class="w-full h-full object-cover avatar" data-tippy-content="{{ post.user.name }}" src="https://source.unsplash.com/collection/10865343" alt="{{ post.user.name }}" tabindex="0">
-            {% endif %}
-		 </div>
-		<div class="mr-5 my-auto">
-			<a href="/users/{{ comment.user.id }}" class="hover:underline" >{{ comment.user.name }}</a>
-		</div>
-		<div class="text-sm text-gray-500 my-auto">
-			{{ comment.createdAt|date('d.m.Y H:i') }}
-		</div>
-	</div>
-	
-	<div class="border rounded-lg p-5 text-left">
-		{{ comment.body }}
-	</div>
-	
-		<div class="flex justify-end p-3">
-		{% if (comment.user.id == user.id) %}
-			<div class="mr-3">
-				<form action="/editComment/{{ comment.id }}">
-					<div class="w-full flex">
-						<button type="submit" class="text-white bg-blue-600 rounded py-1 px-2 m-3 w-1/4 hover:bg-blue-500 w-full">Edit Comment</button>
-					</div>
-				</form>	
-			</div>
 		{% endif %}
-		{% if (admin) or (comment.user.id == user.id) or (post.user.id == user.id) %}
-			<div>
-				<form action="/deleteComment/{{ comment.id }}" method="POST">
-					<input type="hidden" name="method" value="DELETE">
-					<input type="hidden" name="id" value="{{ commment.id }}">
-					<div class="w-full flex">
-						<button type="submit" class="text-white bg-red-600 rounded py-1 px-2 m-3 w-1/4 hover:bg-red-500 w-full">Delete Comment</button>
+		<!-- end of edit button -->
+
+		<div class="text-xl text-2xl md:text-6xl text-gray-700">
+			<div class="">
+				<div class="mb-20">
+					{{ post.title }}
+				</div>
+				<div class="text-sm text-left flex">
+					<div class="h-16 w-16 rounded-full overflow-hidden mr-4">
+						{% if post.user.image %}
+						<img class="w-full h-full object-cover avatar" data-tippy-content="{{ post.user.name }}"
+							src="/{{ post.user.image }}" alt="{{ post.user.name }}" tabindex="0">
+						{% else %}
+						<img class="w-full h-full object-cover avatar" data-tippy-content="{{ post.user.name }}"
+							src="https://source.unsplash.com/collection/10865343" alt="{{ post.user.name }}"
+							tabindex="0">
+						{% endif %}
 					</div>
-				</form>
-			</div>		
+
+					<div class="italic hover:underline mt-auto">
+						<a href="/users/{{ post.user.id }}">{{ post.user.name }}</a>
+					</div>
+				</div>
+			</div>
+			<hr class="mt-10">
 		</div>
-		{% endif %}
-	
-</div>
 
-{% endfor %}
+		{% endblock header_title %}
+		<div class="mt-20 p-5">
+			<div class="text-lg">
+				<img class="h-full w-full object-cover rounded-md mb-10" src="/{{ post.image }}" alt="Image in post">
+				<div>
+					{% autoescape %}
+					{{ post.body|raw }}
+					{% endautoescape %}
+				</div>
+			</div>
 
-{% include "comments/comment-create.html" %}
+
+		</div>
 
 
 
 
-{% block footer_scripts %}
-{% include "components/edit-post-button-functions.html" %}
-	{{ parent() }}
-{% endblock footer_scripts %}
-	
-{% endblock body_content %}
+		{% for comment in comments %}
+		<div class="border rounded-lg p-5 mb-8">
+			<div class="flex mb-5">
+				<div class="h-16 w-16 rounded-full overflow-hidden mr-4">
+					{% if post.user.image %}
+					<img class="w-full h-full object-cover avatar" data-tippy-content="{{ post.user.name }}"
+						src="/{{ post.user.image }}" alt="{{ post.user.name }}" tabindex="0">
+					{% else %}
+					<img class="w-full h-full object-cover avatar" data-tippy-content="{{ post.user.name }}"
+						src="https://source.unsplash.com/collection/10865343" alt="{{ post.user.name }}" tabindex="0">
+					{% endif %}
+				</div>
+				<div class="mr-5 my-auto">
+					<a href="/users/{{ comment.user.id }}" class="hover:underline">{{ comment.user.name }}</a>
+				</div>
+				<div class="text-sm text-gray-500 my-auto">
+					{{ comment.createdAt|date('d.m.Y H:i') }}
+				</div>
+			</div>
+
+			<div class="border rounded-lg p-5 text-left">
+				{{ comment.body }}
+			</div>
+
+			<div class="flex justify-end p-3">
+				{% if (comment.user.id == user.id) %}
+				<div class="mr-3">
+					<form action="/editComment/{{ comment.id }}">
+						<div class="w-full flex">
+							<button type="submit"
+								class="text-white bg-blue-600 rounded py-1 px-2 m-3 w-1/4 hover:bg-blue-500 w-full">Edit
+								Comment</button>
+						</div>
+					</form>
+				</div>
+				{% endif %}
+				{% if (admin) or (comment.user.id == user.id) or (post.user.id == user.id) %}
+				<div>
+					<form action="/deleteComment/{{ comment.id }}" method="POST">
+						<input type="hidden" name="method" value="DELETE">
+						<input type="hidden" name="id" value="{{ commment.id }}">
+						<div class="w-full flex">
+							<button type="submit"
+								class="text-white bg-red-600 rounded py-1 px-2 m-3 w-1/4 hover:bg-red-500 w-full">Delete
+								Comment</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			{% endif %}
+
+		</div>
+
+		{% endfor %}
+
+		{% include "comments/comment-create.html" %}
+
+
+
+
+		{% block footer_scripts %}
+		{% include "components/edit-post-button-functions.html" %}
+		{{ parent() }}
+		{% endblock footer_scripts %}
+
+		{% endblock body_content %}
