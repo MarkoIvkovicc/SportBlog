@@ -99,14 +99,14 @@
       
     <div class="flex h-full bg-white overflow-hidden shadow-lg rounded-lg">
     <a href="/posts/{{ lastPost.id}}" class="flex flex-wrap no-underline hover:no-underline">
-    <div class="w-full md:w-2/3 rounded-b">	
+    <div class="w-full md:w-2/3 rounded-b object-cover">	
       <img src="{{ lastPost.image }}" class="h-full w-full shadow">
     </div>
     <div class="w-full md:w-1/3 flex flex-col flex-grow flex-shrink">
-      <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+      <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg p-3">
         {% autoescape %}
         <div class="w-full font-bold text-xl text-gray-900 px-6 mb-5 mt-5">{{ lastPost.title|raw }}</div>
-        <p class="text-gray-800 font-serif text-base px-6 mb-5">{{ lastPost.body|length > 500 ? lastPost.body|striptags|slice(0, 500) ~ '...' : lastPost.body|raw  }}</p>
+        <div class="text-gray-800 font-serif px-6 mb-5">{{ lastPost.body|length > 500 ? lastPost.body|striptags|slice(0, 500) ~ '...' : lastPost.body|raw  }}</div>
         {% endautoescape %}
       </div>
 
@@ -272,7 +272,7 @@
         </a>
       </div>
       <div class="flex w-full pt-2 content-center justify-between md:w-1/2 md:justify-end">
-        <ul class="list-reset flex justify-center flex-1 md:flex-none items-center">
+  <!--       <ul class="list-reset flex justify-center flex-1 md:flex-none items-center">
           <li>
             <a class="inline-block py-2 px-3 text-white no-underline" href="#">Active</a>
           </li>
@@ -285,8 +285,7 @@
           <li>
             <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:underline py-2 px-3" href="#">link</a>
           </li>
-        </ul>
-          
+        </ul> -->
         </div>
       </div>
     </div>
