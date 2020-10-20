@@ -1,5 +1,4 @@
 /vendor
 config.php
-composer.lock
 /node_modules
 /storage/images
